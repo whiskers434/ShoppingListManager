@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/app.js" charset="utf-8"></script>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="card-panel z-depth-5" style="width: 80%; margin-left:10%;" ng-app="ShoppingListManager" ng-controller="ShoppingListsController as Ctrl">
+	<h1 class="center-align ">Shopping List Manager</h1>
+	<div class="container  center-align  " ng-hide="detailsPage">
+		<!-- <div class="row">
+	    	<div class="col s12"><h2 >View All List</h2></div>
+	    </div>
+	    <div class="row">
+	    	<div class="col s4"><h3>List Name</h3></div>
+	    	<div class="col s4"><h3>Delete List</h3></div>
+	    	<div class="col s4"><h3>Edit List</h3></div>
+	   	</div> -->
+	    <div class="row" ng-repeat="list in lists">
+	    	<div class="col s4"><h4>{{list.name}}</h4></div>
+	    	<div class="col s4"><h4><button ng-click="Ctrl.EditList(list)">Edit</button></h4></div>
+	    	<div class="col s4"><h4><button ng-click="Ctrl.DeleteList(list)">Delete</button></h4></div>
+	    </div>
+	    <div class="row">
+	    	<div class="col s12"><h4><button ng-click="Ctrl.NewList()">New List</button></h4></div>
+	    </div>
+    </div>
+    <div class="container center-align" ng-show="detailsPage">
+    	<!-- <div class="row">
+    		<div class="col s12"><h2>Details Page</h2></div>
+    	</div> -->
+    	<div class="row">
+    		<div class="input-field col s4"><h3>
+    			<input placeholder="List" id="list_name" type="text" ng-model="listName" ng-change="Ctrl.UpdateListName()" class="validate"></h3>
+    			<label for="list_name">List Name</label>
+    		</div>
+    		<div class="col s4" ng-show="Ctrl.ShowSaveListButton()"><h4><button ng-click="Ctrl.SaveList()" >Save</button></h4></div>
+    		<div class="col s4"><h4><button ng-click="Ctrl.Cancel()">Cancel</button></h4></div>
+    	</div>
+    	<div class="row">
+    		<div class="col s4"><h4>Item</h4></div>
+    		<div class="col s4"><h4>Quantity</h4></div>
+    		<div class="col s4"><h4>Remove</h4></div>
+    	</div>
+    	<div class="row" ng-repeat="item in list.items">
+    		<div class="col s4"><h5>{{item.name}}</h5></div>
+    		<div class="col s4">
+    			<h5>{{item.quantity}}
+    			<button ng-click="Ctrl.IncreaseQuantity(item)">+</button>
+    			<button ng-click="Ctrl.DecreaseQuantity(item)">-</button></h5>
+    		</div>
+    		<div class="col s4"><h5><button ng-click="Ctrl.DeleteItem(item)">X</button></h5></div>
+    	</div>
+    	<div class="row">
+    		<div class="col s6"><h4><button ng-click="Ctrl.AddItem()">Add Item</button></h4></div>
+    		<div class="input-field col s6"><h4>
+    			<select class="browser-default" ng-model="selectedItem">
+    			<!-- <select ng-model="selectedItem"> -->
+    				<option class="{{item}}" ng-repeat="item in products" value="{{item}}">{{item}}</option>
+			    </select></h4>
+			    <label>Select Product</label>
+    		</div>
+    	</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+#Don't need build resouces#
+dist
+node_modules
+
+# Temp Files #
+*~
+
+# Backup files #
+*.bk
+*.bak
+
+# Swap files #
+*.swp
+
+# Test files #
+*.t
