@@ -4,6 +4,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 3000;
+
 app.use(express.static(__dirname + '/src'));
 
 //Points to html doc to use when the localhost is loaded?
@@ -108,6 +112,6 @@ function WriteListsToFile(lists){
 	});
  });
 
-http.listen(80, function(){
-  console.log('listening on *:80');
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
