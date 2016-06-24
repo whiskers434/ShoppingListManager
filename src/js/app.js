@@ -123,7 +123,6 @@ app.controller('ShoppingListsController', function($scope) {
 			}
 		}
 		$('select').material_select();
-		$('select').val('');
 	};
 
 	socket.on("ReceiveProductList", function(productList){

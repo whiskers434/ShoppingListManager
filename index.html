@@ -60,8 +60,8 @@
     	<div class="row">
     		<div class="col s6"><h4><button ng-click="Ctrl.AddItem()">Add Item</button></h4></div>
     		<div class="input-field col s6"><h4>
-    			<select class="browser-default" ng-model="selectedItem">
-    			<!-- <select ng-model="selectedItem"> -->
+    			<!-- <select class="browser-default" ng-model="selectedItem"> -->
+    			<select ng-model="selectedItem">
     				<option class="{{item}}" ng-repeat="item in products" value="{{item}}">{{item}}</option>
 			    </select></h4>
 			    <label>Select Product</label>

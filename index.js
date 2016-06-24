@@ -3,6 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var builder = require('xmlbuilder');
+var parseXMLstring = require('xml2js').parseString;
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -16,9 +18,22 @@ app.get('/', function(req, res){
 });
 
 var products = [];
-products = GetProductListFromFile();
+GetProductListFromFile();
 var lists = [];
-lists = GetListsFromFile();
+//GetListsFromFile();
+ReadListsFromFiles();
+
+//list object
+function listObj(name, items){
+	this.name = name;
+	this.items = items;
+}
+
+//item object
+function itemObj(name, quantity){
+	this.name = name;
+	this.quantity = quantity;
+}
 
 function GetProductListFromFile(){
 	
@@ -79,12 +94,77 @@ function WriteListsToFile(lists){
 	console.log(string);
 
 	fs.writeFile('src/txt/Lists.txt', string, 'utf8', (err) => {
-	  if (err) throw err;
-	  console.log('It\'s saved!');
+		if (err) throw err;
+		console.log('It\'s saved!');
 	});
 }
 
-	io.on("connect", function(socket){
+function ReadListsFromFiles(){
+	fs.readdir('src/txt/lists', 'utf8', (err, files) => {
+		if (err) throw err;
+		console.log('List of files: ' + files);
+		for(i = 0; i < files.length; i++){
+			ReadListFromFile(files[i]);
+		}
+	});
+}
+
+function WriteListsToFiles(lists){
+	for(var i = 0; i < lists.length; i++){
+		WriteListToFile(lists[i]);
+	}
+}
+
+function ReadListFromFile(name){
+	fs.readFile('src/txt/lists/' + name, 'utf8', function (err,data) {
+	  	if (err) {
+	    	return console.log(err);
+	  	}
+	  	console.log("read file test:" + data);
+	  	parseXMLstring(data, function (err, result) {
+		    console.log(result);
+		    console.log(result.list.items[0].item[1].name[0]);
+		    var list = new listObj(result.list.name[0],[]);
+		    for(var i = 0; i < result.list.items[0].item.length; i++){
+		    	var item = new itemObj(result.list.items[0].item[i].name[0], result.list.items[0].item[i].quantity[0]);
+				if(list.items === undefined){
+					list.items = [item];
+		  		}else{
+		  			list.items.push(item);
+		  		}
+		  	}
+
+		    if(lists === undefined){
+				lists = [list];
+	  		}else{
+	  			lists.push(list);
+	  		}
+		});
+	});
+}
+
+function WriteListToFile(list){
+	var name = list.name + ".txt";
+
+	var xml = builder.create('list');
+		xml.ele('name', 'My List');
+		var items = xml.ele('items');
+			for(i = 0; i < list.items.length; i++){
+				var item = items.ele('item');
+				item.ele('name', list.items[i].name);
+				item.ele('quantity', list.items[i].quantity);
+			}
+		xml.end({ pretty: true});
+		 
+		console.log(xml);
+
+	fs.writeFile('src/txt/lists/' + name, xml, 'utf8', (err) => {
+		if (err) throw err;
+		console.log('It\'s saved!');
+	});
+}
+
+io.on("connect", function(socket){
 	console.log("A user has connected...");
 
 	socket.on("disconnect", function(){
@@ -92,22 +172,16 @@ function WriteListsToFile(lists){
 	});
 
 	socket.on("getProductList", function() {
-		//console.log("products");
-		//console.log(products);
 		io.emit("ReceiveProductList", products);
 	});
 
 	socket.on("getLists", function() {
-		
-		//console.log("lists");
-		//console.log(lists);
 		io.emit("ReceiveList", lists);
 	});
 
 	socket.on("ReceiveLists", function(listsNew) {
-		//console.log("Received Lists");
-		//console.log(lists);
-		WriteListsToFile(listsNew);
+		//WriteListsToFile(listsNew);
+		WriteListsToFiles(listsNew)
 		lists = listsNew;
 	});
  });
