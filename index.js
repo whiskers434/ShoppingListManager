@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var fs = require('fs');
 var builder = require('xmlbuilder');
 var parseXMLstring = require('xml2js').parseString;
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -36,7 +39,6 @@ function itemObj(name, quantity){
 }
 
 function GetProductListFromFile(){
-	
     fs.readFile('src/txt/ProductList.txt', 'utf8', function (err,data) {
 	  	if (err) {
 	    	return console.log(err);
@@ -164,28 +166,27 @@ function WriteListToFile(list){
 	});
 }
 
-io.on("connect", function(socket){
-	console.log("A user has connected...");
-
-	socket.on("disconnect", function(){
-		console.log("A user has disconnected...");
-	});
-
-	socket.on("getProductList", function() {
-		io.emit("ReceiveProductList", products);
-	});
-
-	socket.on("getLists", function() {
-		io.emit("ReceiveList", lists);
-	});
-
-	socket.on("ReceiveLists", function(listsNew) {
-		//WriteListsToFile(listsNew);
-		WriteListsToFiles(listsNew)
-		lists = listsNew;
-	});
- });
-
 http.listen(port, function(){
   console.log('listening on *:' + port);
+});
+
+app.get('/getProductList', function(req, res){
+	console.log('getProductList');
+	res.send(products);
+});
+
+app.get('/getLists', function(req, res){
+	console.log('getLists');
+	res.send(lists);
+});
+
+app.post('/sendLists', function(req, res) {
+    console.log(req.body);
+    var listsNew = req.body;
+	req.read(listsNew);
+	console.log('sendLists');
+	console.log(listsNew);
+	WriteListsToFiles(listsNew)
+	lists = listsNew;
+    res.end();
 });

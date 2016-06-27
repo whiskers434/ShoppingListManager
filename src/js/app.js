@@ -1,11 +1,5 @@
-var socket = io();
-
-socket.emit("getProductList");
-socket.emit("getLists");
-
-
 var app = angular.module('ShoppingListManager', []);
-app.controller('ShoppingListsController', function($scope) {
+app.controller('ShoppingListsController', function($scope, $http) {
 	this.productsList = []; //copy of list of products from server file
 
 	this.lists = []; //array of lists
@@ -34,7 +28,7 @@ app.controller('ShoppingListsController', function($scope) {
 	this.NewList = function() {
 		$scope.detailsPage = true;
 		$scope.list = new listObj("", []);
-		if($scope.lists === null){
+		if($scope.lists === undefined){
 			$scope.lists = [$scope.list];
 		}else{
 			$scope.lists.push($scope.list);
@@ -56,7 +50,8 @@ app.controller('ShoppingListsController', function($scope) {
 	};
 	this.DeleteList = function(list) {
 		$scope.lists.splice($scope.lists.indexOf(list),1);
-		socket.emit("ReceiveLists", $scope.lists);
+		//socket.emit("ReceiveLists", $scope.lists);
+		sendLists();
 	};
 	this.AddItem = function() {
 		var item = new itemObj($scope.selectedItem, 1);
@@ -94,7 +89,8 @@ app.controller('ShoppingListsController', function($scope) {
 			$scope.list.name = "list";
 		}
 		$scope.detailsPage = false;
-		socket.emit("ReceiveLists", $scope.lists);
+		//socket.emit("ReceiveLists", $scope.lists);
+		sendLists();
 	};
 	this.ShowSaveListButton = function () {
 		var listNew = angular.toJson($scope.list);
@@ -125,17 +121,30 @@ app.controller('ShoppingListsController', function($scope) {
 		$('select').material_select();
 	};
 
-	socket.on("ReceiveProductList", function(productList){
+	$http.get('/getProductList').success(function(productList) {
 		$scope.productsList = productList
 		$scope.products = JSON.parse(JSON.stringify($scope.productsList));
-		//console.log($scope.products);
-		$scope.$apply()
+		console.log('get products');
+		console.log($scope.products);
+		//$scope.$apply()
 	});
 
-	socket.on("ReceiveList", function(shoppingLists){
+	$http.get('/getLists').success(function(shoppingLists) {
 		$scope.lists = shoppingLists;
-		//console.log($scope.lists);
-		$scope.$apply()
+		console.log('get lists');
+		console.log($scope.lists);
+		//$scope.$apply()
 	});
 
+	sendLists = function() {
+		console.log('send lists');
+		console.log($scope.lists);
+		//$http.get('/sendLists', $scope.lists);
+		$http.post('/sendLists', $scope.lists).
+        success(function(data) {
+            console.log("posted successfully");
+        }).error(function(data) {
+            console.error("error in posting");
+        });
+	};
 });
