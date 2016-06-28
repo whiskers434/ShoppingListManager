@@ -96,14 +96,18 @@ function WriteListsToFile(lists){
 	console.log(string);
 
 	fs.writeFile('src/txt/Lists.txt', string, 'utf8', function (err) {
-		if (err) throw err;
+		if (err) {
+	    	return console.log(err);
+	  	}
 		console.log('It\'s saved!');
 	});
 }
 
 function ReadListsFromFiles(){
 	fs.readdir('src/txt/lists', 'utf8', function (err, files) {
-		if (err) throw err;
+		if (err) {
+	    	return console.log(err);
+	  	}
 		console.log('List of files: ' + files);
 		for(i = 0; i < files.length; i++){
 			ReadListFromFile(files[i]);
@@ -116,7 +120,9 @@ function WriteListsToFiles(lists){
 		WriteListToFile(lists[i]);
 	}
 	fs.readdir('src/txt/lists', 'utf8', function(err, files) {
-		if (err) throw err;
+		if (err) {
+	    	return console.log(err);
+	  	}
 		console.log('List of files: ' + files);
 		for(i = 0; i < files.length; i++){
 			for(var ii = 0; ii < lists.length; ii++){
@@ -180,7 +186,9 @@ function WriteListToFile(list){
 		console.log(xml);
 
 	fs.writeFile('src/txt/lists/' + name, xml, 'utf8', function(err) {
-		if (err) throw err;
+		if (err) {
+	    	return console.log(err);
+	  	}
 		console.log('It\'s saved!');
 	});
 }
