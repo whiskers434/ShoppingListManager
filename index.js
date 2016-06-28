@@ -128,11 +128,13 @@ function WriteListsToFiles(lists){
 			}
 			
 		}
+		/*
 		for(iii = 0; iii < files.length; iii++){
 			 fs.unlink('src/txt/lists/' + files[iii], function(err){
                if (err) throw err;
           });
 		}
+		*/
 	});
 }
 
