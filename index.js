@@ -123,7 +123,6 @@ function WriteListsToFiles(lists){
 				if(file[i] === (lists[ii].name + ".txt")){
 					file.splice(i,1);
 					i--;
-					break;
 				}
 			}
 			
