@@ -4,10 +4,10 @@ var http = require('http').Server(app);
 var fs = require('fs');
 var builder = require('xmlbuilder');
 var parseXMLstring = require('xml2js').parseString;
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing
+//app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.urlencoded({ extended: true })); // for parsing
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -179,7 +179,7 @@ app.get('/getLists', function(req, res){
 	console.log('getLists');
 	res.send(lists);
 });
-
+/*
 app.post('/sendLists', function(req, res) {
     console.log(req.body);
     var listsNew = req.body;
@@ -189,3 +189,4 @@ app.post('/sendLists', function(req, res) {
 	lists = listsNew;
     res.end();
 });
+*/
