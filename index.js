@@ -149,7 +149,7 @@ function WriteListToFile(list){
 	var name = list.name + ".txt";
 
 	var xml = builder.create('list');
-		xml.ele('name', 'My List');
+		xml.ele('name', list.name);
 		var items = xml.ele('items');
 			for(i = 0; i < list.items.length; i++){
 				var item = items.ele('item');
@@ -183,7 +183,6 @@ app.get('/getLists', function(req, res){
 app.post('/sendLists', function(req, res) {
     console.log(req.body);
     var listsNew = req.body;
-	req.read(listsNew);
 	console.log('sendLists');
 	console.log(listsNew);
 	WriteListsToFiles(listsNew)
