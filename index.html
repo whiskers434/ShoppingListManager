@@ -5,25 +5,22 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="/js/angular/jquery-1.11.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/angular/jquery-3.0.0.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/angular/angular.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/angular/angular-route.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/angular/angular-materialize.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/angular/materialize.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/resources/shoppingListManagerFactory.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/controllers/shoppingListManagerControllers.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/app.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/icon.css"> 
     <link rel="stylesheet" href="/css/materialize.css">
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 <body class="grey darken-4">
     <div class=" card-panel z-depth-5 center-align grey darken-3" style="width: 80%; margin-left:10%;"> 
         <h1 class="center-align ">Shopping List Manager</h1>
         <div class="container" ng-view=""></div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    </script>
 </body>
 </html>

@@ -50,7 +50,7 @@ shoppingListManagerControllers.controller('ViewAllLists-Ctrl', ['$scope', '$http
 shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location', 'shoppingListManager',
 	function($scope, $location, shoppingListManager) {
 		$scope.selectedItem = null; //item selected by drop down
-		$scope.listName = ""; //text input box for list name
+		$scope.listName = shoppingListManager.list.name; //text input box for list name
 		$scope.items = shoppingListManager.list.items; //array of items
 		$scope.products = shoppingListManager.products; //array of products
 
@@ -67,6 +67,7 @@ shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location
 			shoppingListManager.list.items.splice(shoppingListManager.list.items.indexOf(item),1);
 			shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
 			shoppingListManager.UpdateProductList();
+			$scope.products = shoppingListManager.products;
 		};
 		$scope.IncreaseQuantity = function(item) {
 			item.quantity++;
@@ -78,6 +79,7 @@ shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location
 				shoppingListManager.list.items.splice(shoppingListManager.list.items.indexOf(item),1);
 				shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
 				shoppingListManager.UpdateProductList();
+				$scope.products = shoppingListManager.products;
 			}
 		};
 		$scope.UpdateListName = function() {

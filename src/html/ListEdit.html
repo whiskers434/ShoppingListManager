@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="input-field col s4"><h3>
-		<input placeholder="List" id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{shoppingListManager.list.name}}"></h3>
-		<label for="list_name">list Name</label>
+		<input placeholder="List" id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}">
+		</h3><label for="list_name">list Name</label>
 	</div>
 	<div class="col s4" ><h3><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="SaveList()" ng-disabled="ShowSaveListButton()"><i class="material-icons">save</i></button></h3></div>
 	<div class="col s4"><h3><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="Cancel()"><i class="material-icons">cancel</i></button></h3></div>
@@ -24,9 +24,8 @@
 <div class="row">
 	<div class="col s6"><h4><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="AddItem()"><i class="material-icons">add_shopping_cart</i></button></h4></div>
 	<div class="col s6 "><h4>
-		<select ng-model="selectedItem">
-			<option ng-repeat="item in products" value="{{item}}">{{item}}</option>
+		<select class="browser-default grey darken-2" ng-model="selectedItem">
+			<h5><option ng-repeat="item in products" value="{{item}}">{{item}}</option></h5>
 	    </select></h4>
-	    <label>Select Product</label>
 	</div>
 </div>

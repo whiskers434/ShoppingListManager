@@ -1,0 +1,11 @@
+select {
+	background: transparent; 
+	-webkit-appearance: none;"
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}

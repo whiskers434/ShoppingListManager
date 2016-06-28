@@ -4,10 +4,10 @@ var http = require('http').Server(app);
 var fs = require('fs');
 var builder = require('xmlbuilder');
 var parseXMLstring = require('xml2js').parseString;
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
-//app.use(bodyParser.json()); // for parsing application/json
-//app.use(bodyParser.urlencoded({ extended: true })); // for parsing
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -115,6 +115,25 @@ function WriteListsToFiles(lists){
 	for(var i = 0; i < lists.length; i++){
 		WriteListToFile(lists[i]);
 	}
+	fs.readdir('src/txt/lists', 'utf8', (err, files) => {
+		if (err) throw err;
+		console.log('List of files: ' + files);
+		for(i = 0; i < files.length; i++){
+			for(var ii = 0; ii < lists.length; ii++){
+				if(file[i] === (lists[ii].name + ".txt")){
+					file.splice(i,1);
+					i--;
+					break;
+				}
+			}
+			
+		}
+		for(iii = 0; iii < files.length; iii++){
+			 fs.unlink('src/txt/lists/' + files[iii], function(err){
+               if (err) throw err;
+          });
+		}
+	});
 }
 
 function ReadListFromFile(name){
@@ -125,7 +144,6 @@ function ReadListFromFile(name){
 	  	console.log("read file test:" + data);
 	  	parseXMLstring(data, function (err, result) {
 		    console.log(result);
-		    console.log(result.list.items[0].item[1].name[0]);
 		    var list = new listObj(result.list.name[0],[]);
 		    for(var i = 0; i < result.list.items[0].item.length; i++){
 		    	var item = new itemObj(result.list.items[0].item[i].name[0], result.list.items[0].item[i].quantity[0]);
@@ -135,7 +153,7 @@ function ReadListFromFile(name){
 		  			list.items.push(item);
 		  		}
 		  	}
-
+		  	console.log(list);
 		    if(lists === undefined){
 				lists = [list];
 	  		}else{
@@ -179,7 +197,7 @@ app.get('/getLists', function(req, res){
 	console.log('getLists');
 	res.send(lists);
 });
-/*
+
 app.post('/sendLists', function(req, res) {
     console.log(req.body);
     var listsNew = req.body;
@@ -189,4 +207,3 @@ app.post('/sendLists', function(req, res) {
 	lists = listsNew;
     res.end();
 });
-*/

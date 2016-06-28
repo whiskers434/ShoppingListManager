@@ -44,8 +44,8 @@ angular.module('shoppingListManagerFactory', [])
 					}
 				}
 			}
-			$('select').material_select();
 		};
+
 		return shoppingListManager;
 	}
 ]);
