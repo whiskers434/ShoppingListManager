@@ -57,7 +57,7 @@ function ReadListsFromFiles(){
 	  	}
 		console.log('List of files: ' + files);
 		for(i = 0; i < files.length; i++){
-			ReadListFromFile(files[i]);
+			//ReadListFromFile(files[i]);
 		}
 	});
 }
