@@ -50,59 +50,6 @@ function GetProductListFromFile(){
 	
 };
 
-function GetListsFromFile(){
-	fs.readFile('src/txt/Lists.txt', 'utf8', function (err,data) {
-	  	if (err) {
-	    	return console.log(err);
-	  	}
-	  	//console.log("data");
-	  	//console.log(data);
-	  	var string = "";
-	  	var strings = [];
-	  	string = data;
-	  	if(string != "")
-	  	{
-		  	strings = string.split("\n");
-		  	//console.log("strings");
-		  	//console.log(strings);
-		  	for(var i = 0; i < (strings.length-1); i++){
-		  		var list = JSON.parse(strings[i]);
-		  		//console.log("list");
-		  		//console.log(list);
-		  		if(lists === undefined){
-					lists = [list];
-		  		}else{
-		  			lists.push(list);
-		  		}
-		  	}
-	    }
-	});
-}
-
-function WriteListsToFile(lists){
-	var strings = [];
-	var string = "";
-
-	for(var i = 0; i < lists.length; i++){
-		strings.push(JSON.stringify(lists[i]));
-	}
-
-	//console.log(strings);
-
-	for(var i = 0; i < strings.length; i++){
-		string += (strings[i] + "\n");
-	}
-
-	console.log(string);
-
-	fs.writeFile('src/txt/Lists.txt', string, 'utf8', function (err) {
-		if (err) {
-	    	return console.log(err);
-	  	}
-		console.log('It\'s saved!');
-	});
-}
-
 function ReadListsFromFiles(){
 	fs.readdir('src/txt/lists', 'utf8', function (err, files) {
 		if (err) {
