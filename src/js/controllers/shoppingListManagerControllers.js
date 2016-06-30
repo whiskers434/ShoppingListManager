@@ -207,6 +207,19 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 			if(listNew === listOld){
 				return true;
 			}else{
+				if($scope.uniqueName == true) {
+					return true;
+				}else{
+					return false;
+				}
+			}
+		};
+		$scope.ShowCancelListButton = function () {
+			var listNew = angular.toJson($scope.list);
+			var listOld = angular.toJson($scope.listCopy)
+			if(listNew === listOld){
+				return true;
+			}else{
 				return false;
 			}
 		};
