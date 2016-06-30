@@ -8,6 +8,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		$scope.listPerPageLimit = 5;
 		$scope.page = 1;
 		$scope.listPageIndex = 0;
+		$scope.pages;
 
 		getLists();
 
@@ -18,6 +19,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	            	console.log(response.data);
 	                $scope.lists = response.data;
 	                $scope.lists.sort();
+	                $scope.getPages();
 	            }, function (error) {
 	                $scope.status = 'Unable to load customer data: ' + error.message;
 	            });
@@ -56,12 +58,14 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 			if($scope.page > 1){
 				$scope.page -= 1;
 				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+				$scope.getPages();
 			}
 		}
 		$scope.NextPage = function() {
 			if($scope.page < $scope.lists.length/$scope.listPerPageLimit){
 				$scope.page += 1;
 				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+				$scope.getPages();
 			}
 		}
 		$scope.CanPrev = function() {
@@ -76,6 +80,16 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 				return false;
 			}else{
 				return true;
+			}
+		}
+		$scope.getPages = function() {
+			$scope.pages = [];
+			for(i = 0; i < $scope.lists.length/$scope.listPerPageLimit; i++){
+				if($scope.page-1 == i){
+					$scope.pages.push('radio_button_checked');
+				}else{
+					$scope.pages.push('radio_button_unchecked');
+				}
 			}
 		}
 	}
