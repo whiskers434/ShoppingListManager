@@ -1,21 +1,21 @@
 <div class="row">
 	<div class="col s6">
 		<h4>List Name
-		<button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="listNameSort()" ng-show="listSort"><i class="material-icons" >arrow_drop_up</i></button>
-		<button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="listNameSort()" ng-hide="listSort"><i class="material-icons" >arrow_drop_down</i></button></h4>
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="listNameSort()" ng-show="listSort"><i class="material-icons" >arrow_drop_up</i></button>
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="listNameSort()" ng-hide="listSort"><i class="material-icons" >arrow_drop_down</i></button></h4>
 	</a></div>
 	<div class="col s4"><h3><input placeholder="Search Lists" type="text" ng-model="searchName" class="validate" ng-change="listNameSearch()"><h3></div>
 </div>
 <div class="row" ng-repeat="list in lists | limitTo: listPerPageLimit : listPageIndex| filter:searchName | orderBy : 'name' : listSort">
 	<div class="col s4"><h4>{{list}}</h4></div>
-	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="EditList(list)"><i class="material-icons">mode_edit</i></button></h4></div>
-	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="DeleteList(list)"><i class="material-icons">delete</i></button></h4></div>
+	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)"><i class="material-icons">mode_edit</i></button></h4></div>
+	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)"><i class="material-icons">delete</i></button></h4></div>
 </div>
 <div class="row">
-	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-disabled="CanPrev()" ng-click="PrevPage()"><i class="material-icons">navigate_before</i></button></div>
+	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()"><i class="material-icons">navigate_before</i></button></div>
 	<div class="col s4"><h4>{{page}}</h4></div>
-	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-disabled="CanNext()"ng-click="NextPage()"><i class="material-icons">navigate_next</i></button></div>
+	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()"><i class="material-icons">navigate_next</i></button></div>
 </div>
 <div class="row">
-	<div class="col s12"><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="NewList()"><i class="material-icons">note_add</i></button></div>
+	<div class="col s12"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="NewList()"><i class="material-icons">note_add</i></button></div>
 </div>
