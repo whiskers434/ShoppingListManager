@@ -3,11 +3,11 @@ shoppingListManagerApp.config(function($routeProvider){
 $routeProvider.
 	when('/', {
 		templateUrl: '/html/ViewAllLists.html',
-		controller: 'ViewAllLists-Ctrl'
+		controller: 'ViewAllListsCtrl'
 	}).
 	when('/listEdit', {
 		templateUrl: '/html/ListEdit.html',
-		controller: 'ListEdit-Ctrl'
+		controller: 'ListEditCtrl'
 	}).
 	otherwise({
 		redirectTo: '/'

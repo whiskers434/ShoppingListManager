@@ -1,49 +1,44 @@
 angular.module('shoppingListManagerFactory', [])
-.factory('shoppingListManager', ['$http',
+.factory('shoppingListManager', ['$http', 
 	function ($http) {
 		var shoppingListManager = {};
+		var webServicePort = 'http://localhost:3001';
 
-		shoppingListManager.productsList = []; //copy of list of products from server file
+		shoppingListManager.getProducts = function(){ 
+			console.log('get products');
+			return $http.get(webServicePort + '/getProductList');
+		};
 
-		shoppingListManager.lists = []; //array of lists
-		shoppingListManager.products = []; //array of products
+		shoppingListManager.getLists = function(){ 
+			console.log('get lists');
+			return $http.get(webServicePort + '/getLists');
+		};
 
-		shoppingListManager.list = {}; //current list being edited in details page
-		shoppingListManager.listCopy = {}; //copy of current list being edited in details page
+		shoppingListManager.getList = function(list){
+			console.log('get list ' + list);
+			return $http.post(webServicePort + '/getList', {list});
+		};
 
-		//list object
-		shoppingListManager.listObj = function(name, items){
-			this.name = name;
-			this.items = items;
-		}
-
-		//item object
-		shoppingListManager.itemObj = function(name, quantity){
-			this.name = name;
-			this.quantity = quantity;
-		}
-
-		shoppingListManager.sendLists = function() {
-			console.log('send lists');
-			console.log(shoppingListManager.lists);
-			//$http.get('/sendLists', lists);
-			$http.post('/sendLists', shoppingListManager.lists).
-	        success(function(data) {
-	            console.log("posted successfully");
-	        }).error(function(data) {
-	            console.error("error in posting");
+		shoppingListManager.sendList = function(list) {
+			console.log('send list');
+			console.log(list);
+			$http.post(webServicePort + '/sendList', list).
+		        success(function(data) {
+		            console.log("posted successfully");
+		        }).error(function(data) {
+		            console.error("error in posting");
 	        });
 		};
 
-		shoppingListManager.UpdateProductList = function() {
-			for(i = 0; i < shoppingListManager.products.length; i++){
-				for(j = 0; j < shoppingListManager.list.items.length; j++){
-					if(shoppingListManager.products[i] == shoppingListManager.list.items[j].name){
-						shoppingListManager.products.splice(i,1);
-						i--;
-					}
-				}
-			}
+		shoppingListManager.sendListRemove = function(list) {
+			console.log('send list remove');
+			console.log(list);
+			$http.post(webServicePort + '/sendListRemove', {list}).
+		        success(function(data) {
+		            console.log("posted successfully");
+		        }).error(function(data) {
+		            console.error("error in posting");
+	        });
 		};
 
 		return shoppingListManager;

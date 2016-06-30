@@ -1,10 +1,10 @@
 <div class="row">
-	<div class="input-field col s4"><h3>
-		<input placeholder="List" id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}">
-		</h3><label for="list_name">list Name</label>
+	<div class="input-field col s4"><h4>
+		<input placeholder="List Name" id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}"></h4>
+		<label ng-show="uniqueName" style="color: #d50000;">List name not unique</label>
 	</div>
 	<div class="col s4" ><h3><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="SaveList()" ng-disabled="ShowSaveListButton()"><i class="material-icons">save</i></button></h3></div>
-	<div class="col s4"><h3><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="Cancel()"><i class="material-icons">cancel</i></button></h3></div>
+	<div class="col s4"><h3><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="Cancel()" ng-disabled="ShowSaveListButton()"><i class="material-icons">cancel</i></button></h3></div>
 </div>
 <div class="row">
 	<div class="col s4"><h4>Item</h4></div>
@@ -22,10 +22,13 @@
 	<div class="col s4"><h5><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="DeleteItem(item)"><i class="material-icons">delete</i></button></h5></div>
 </div>
 <div class="row">
-	<div class="col s6"><h4><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="AddItem()"><i class="material-icons">add_shopping_cart</i></button></h4></div>
-	<div class="col s6 "><h4>
+	<div class="col s4"><h2><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="Home()"><i class="material-icons">home</i></button></h2></div>
+	<div class="col s5"><h4>
+		<label><h6>Product List<h6></label>
 		<select class="browser-default grey darken-2" ng-model="selectedItem">
+			<h5><option value="" disabled selected>Select Product</option></h5>
 			<h5><option ng-repeat="item in products" value="{{item}}">{{item}}</option></h5>
-	    </select></h4>
+	    </select>
 	</div>
+	<div class="col s1"><h2><button class="btn-floating btn-large waves-effect waves-light grey darken-2" ng-click="AddItem()"><i class="material-icons">add</i></button></h2></div>
 </div>

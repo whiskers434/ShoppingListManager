@@ -1,73 +1,170 @@
 var shoppingListManagerControllers = angular.module('shoppingListManagerControllers', []);
 
-shoppingListManagerControllers.controller('ViewAllLists-Ctrl', ['$scope', '$http',  '$location', 'shoppingListManager', 
-	function($scope, $http, $location, shoppingListManager) {
-		$scope.lists = shoppingListManager.lists;
+shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$location', 'shoppingListManager', 
+	function($scope, $location, shoppingListManager) {
+		$scope.lists = [];
+		$scope.listSort = false;
+		$scope.searchName;
+		$scope.listPerPageLimit = 5;
+		$scope.page = 1;
+		$scope.listPageIndex = 0;
 
-		$http.get('/getProductList').success(function(productList) {
-			shoppingListManager.productsList = productList
-			shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
-			console.log('get products');
-			console.log(shoppingListManager.products);
-		});
+		getLists();
 
-		$http.get('/getLists').success(function(shoppingLists) {
-			shoppingListManager.lists = shoppingLists;
-			$scope.lists = shoppingLists;
-			console.log('get lists');
-			console.log(shoppingListManager.lists);
-		});
+	    function getLists() {
+	        shoppingListManager.getLists()
+	            .then(function (response) {
+	            	console.log("got lists");
+	            	console.log(response.data);
+	                $scope.lists = response.data;
+	                $scope.lists.sort();
+	            }, function (error) {
+	                $scope.status = 'Unable to load customer data: ' + error.message;
+	            });
+	    }
 
 		$scope.NewList = function() {
 			console.log("New list");
 			$location.path("/listEdit");
-			shoppingListManager.list = new shoppingListManager.listObj("", []);
-			if(shoppingListManager.lists === undefined){
-				shoppingListManager.lists = [shoppingListManager.list];
-			}else{
-				shoppingListManager.lists.push(shoppingListManager.list);
-			}
-			shoppingListManager.listCopy = new shoppingListManager.listObj("", []);
-			shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
-			shoppingListManager.UpdateProductList();
+			$location.search('list', null);
 		};
 		$scope.EditList = function(list) {
 			$location.path("/listEdit");
-			shoppingListManager.list = list;
-			shoppingListManager.listCopy = JSON.parse(JSON.stringify(list));
-			shoppingListManager.selectedItem = null;
-			shoppingListManager.listName = list.name;
-			shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
-			shoppingListManager.UpdateProductList();
+			$location.search('list', list);
 		};
 		$scope.DeleteList = function(list) {
-			shoppingListManager.lists.splice(shoppingListManager.lists.indexOf(list),1);
-			shoppingListManager.sendLists();
+			shoppingListManager.sendListRemove(list);
+			$scope.lists.splice($scope.lists.indexOf(list),1);
+			$scope.page = 1;
+			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
 		};
+		$scope.listNameSearch = function (){
+			$scope.page = 1;
+			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+		}
+		$scope.listNameSort = function() {
+			$scope.lists.sort();
+			if($scope.listSort == false){
+				$scope.listSort = true;
+			}else{
+				$scope.listSort = false;
+			}
+			$scope.page = 1;
+			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+		};
+		$scope.PrevPage = function() {
+			if($scope.page > 1){
+				$scope.page -= 1;
+				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+			}
+		}
+		$scope.NextPage = function() {
+			if($scope.page < $scope.lists.length/$scope.listPerPageLimit){
+				$scope.page += 1;
+				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+			}
+		}
+		$scope.CanPrev = function() {
+			if($scope.page > 1){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		$scope.CanNext = function() {
+			if($scope.page < $scope.lists.length/$scope.listPerPageLimit){
+				return false;
+			}else{
+				return true;
+			}
+		}
 	}
 ]);
 
-shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location', 'shoppingListManager',
+shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location', 'shoppingListManager',
 	function($scope, $location, shoppingListManager) {
-		$scope.selectedItem = null; //item selected by drop down
-		$scope.listName = shoppingListManager.list.name; //text input box for list name
-		$scope.items = shoppingListManager.list.items; //array of items
-		$scope.products = shoppingListManager.products; //array of products
+		$scope.selectedItem; //item selected by drop down
+		$scope.listName; //text input box for list name
+		$scope.items;
+		$scope.list = {name: "", items: []}; //current list to edit
+		$scope.lists = []; //list of lists from server
+		$scope.products = []; //array of products
+		$scope.uniqueName = false;
+
+		$scope.productsCopy= []; //copy of list of products from server file
+		$scope.listCopy = {}; //copy of current list being edited in details page
+
+		getProducts();
+		getLists();
+		getList();		
+
+		function getProducts() {
+	        shoppingListManager.getProducts()
+	            .then(function (response) {
+	            	console.log("got products");
+	            	console.log(response.data);
+	                $scope.products = response.data;
+	                $scope.productsCopy = JSON.parse(JSON.stringify($scope.products));
+	                UpdateProductList();
+	            }, function (error) {
+	                $scope.status = 'Unable to load customer data: ' + error.message;
+	            });
+	    }
+
+	    function getList() {
+	    	var search = $location.search();
+	        shoppingListManager.getList(search.list)
+	            .then(function (response) {
+	            	console.log("got list");
+	            	console.log(response.data);
+	                $scope.list = response.data;
+	                $scope.listCopy = JSON.parse(JSON.stringify($scope.list));
+	                $scope.listName = $scope.list.name;
+	                $scope.items = $scope.list.items
+	                UpdateProductList();
+	            }, function (error) {
+	                $scope.status = 'Unable to load customer data: ' + error.message;
+	            });
+	    }
+
+	    function getLists() {
+	        shoppingListManager.getLists()
+	            .then(function (response) {
+	            	console.log("got lists");
+	            	console.log(response.data);
+	                $scope.lists = response.data;
+	            }, function (error) {
+	                $scope.status = 'Unable to load customer data: ' + error.message;
+	            });
+	    }
+
+	    function UpdateProductList() {
+			for(i = 0; i < $scope.products.length; i++){
+				if($scope.list.items != undefined){
+					for(j = 0; j < $scope.list.items.length; j++){
+						if($scope.products[i] == $scope.list.items[j].name){
+							$scope.products.splice(i,1);
+							i--;
+						}
+					}
+				}
+			}
+			$scope.items = $scope.list.items
+		};
 
 		$scope.AddItem = function() {
-			var item = new shoppingListManager.itemObj($scope.selectedItem, 1);
-			if(shoppingListManager.list.items === undefined){
-				shoppingListManager.list.items = [item];
+			var item = {name: $scope.selectedItem, quantity: 1};
+			if($scope.list.items === undefined){
+				$scope.list.items = [item];
 			}else{
-				shoppingListManager.list.items.push(item);
+				$scope.list.items.push(item);
 			}
-			shoppingListManager.UpdateProductList();
+			UpdateProductList();
 		};
 		$scope.DeleteItem = function(item) {
-			shoppingListManager.list.items.splice(shoppingListManager.list.items.indexOf(item),1);
-			shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
-			shoppingListManager.UpdateProductList();
-			$scope.products = shoppingListManager.products;
+			$scope.list.items.splice($scope.list.items.indexOf(item),1);
+			$scope.products = JSON.parse(JSON.stringify($scope.productsCopy));
+			UpdateProductList();
 		};
 		$scope.IncreaseQuantity = function(item) {
 			item.quantity++;
@@ -76,27 +173,37 @@ shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location
 			if(item.quantity > 1){
 				item.quantity--;
 			}else{
-				shoppingListManager.list.items.splice(shoppingListManager.list.items.indexOf(item),1);
-				shoppingListManager.products = JSON.parse(JSON.stringify(shoppingListManager.productsList));
-				shoppingListManager.UpdateProductList();
-				$scope.products = shoppingListManager.products;
+				$scope.list.items.splice($scope.list.items.indexOf(item),1);
+				$scope.products = JSON.parse(JSON.stringify($scope.productsList));
+				$scope.UpdateProductList();
 			}
 		};
 		$scope.UpdateListName = function() {
-			shoppingListManager.list.name = $scope.listName;
+			$scope.list.name = $scope.listName;
+			$scope.uniqueName = false;
+			for(i = 0; i < $scope.lists.length; i++){
+				if($scope.list.name == $scope.lists[i]){
+					$scope.uniqueName = true;
+				}
+			}
 		};
 		$scope.SaveList = function() {
-			shoppingListManager.list.name = $scope.listName;
-			if(shoppingListManager.list.name === "")
-			{
-				shoppingListManager.list.name = "list";
+			if($scope.list.name === ""){
+				alert("List name not set");
+			}else{
+				if($scope.uniqueName == true){
+					alert("List name not unique");
+				}else{
+					shoppingListManager.sendList($scope.list);
+					$scope.lists.push($scope.list.name);
+					$scope.listCopy = JSON.parse(JSON.stringify($scope.list));
+					alert("Your changes have been saved");
+				}
 			}
-			$location.path("/");
-			shoppingListManager.sendLists();
 		};
 		$scope.ShowSaveListButton = function () {
-			var listNew = angular.toJson(shoppingListManager.list);
-			var listOld = angular.toJson(shoppingListManager.listCopy)
+			var listNew = angular.toJson($scope.list);
+			var listOld = angular.toJson($scope.listCopy)
 			if(listNew === listOld){
 				return true;
 			}else{
@@ -104,11 +211,22 @@ shoppingListManagerControllers.controller('ListEdit-Ctrl', ['$scope', '$location
 			}
 		};
 		$scope.Cancel = function() {
-			$location.path("/");
-			shoppingListManager.list = shoppingListManager.listCopy;
-			if(angular.toJson(shoppingListManager.list) === angular.toJson(new shoppingListManager.listObj("", [])))
-			{
-				shoppingListManager.lists.splice(shoppingListManager.lists.indexOf(shoppingListManager.list),1);
+			confirm("Are you sure you want to revert changes");
+			$scope.list = $scope.listCopy;
+			$scope.listCopy = JSON.parse(JSON.stringify($scope.list));
+			$scope.products = JSON.parse(JSON.stringify($scope.productsCopy));
+			UpdateProductList();
+			$scope.selectedItem = null;
+			$scope.listName = $scope.list.name;
+			$scope.uniqueName = false;
+		}
+		$scope.Home = function() {
+			if($scope.ShowSaveListButton() == true){
+				$location.path("/");
+			}else{
+				if(confirm("You have unsaved changes!\nAre you sure you want to leave?") == true){
+					$location.path("/");
+				}
 			}
 		}
 	}
