@@ -111,6 +111,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 		$scope.lists = []; //list of lists from server
 		$scope.products = []; //array of products
 		$scope.uniqueName = false;
+		$scope.saved = false;
 
 		$scope.productsCopy= []; //copy of list of products from server file
 		$scope.listCopy = {}; //copy of current list being edited in details page
@@ -225,7 +226,10 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 					shoppingListManager.sendList($scope.list);
 					$scope.lists.push($scope.list.name);
 					$scope.listCopy = JSON.parse(JSON.stringify($scope.list));
-					alert("Your changes have been saved");
+					//alert("Your changes have been saved");
+					//Materialize.toast("Your changes have been saved", 4000, 'rounded light-blue lighten-2'); // 4000 is the duration of the toast
+					$scope.saved = true;
+					setTimeout(function(){ $scope.saved = false; }, 1000);
 				}
 			}
 		};
