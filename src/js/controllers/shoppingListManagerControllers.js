@@ -119,6 +119,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	            	console.log("got products");
 	            	console.log(response.data);
 	                $scope.products = response.data;
+	                $scope.products.sort();
 	                $scope.productsCopy = JSON.parse(JSON.stringify($scope.products));
 	                UpdateProductList();
 	            }, function (error) {
