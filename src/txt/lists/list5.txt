@@ -1,0 +1,4 @@
+<list>
+  <name>list5</name>
+  <items/>
+</list>
