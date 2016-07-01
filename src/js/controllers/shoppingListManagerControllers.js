@@ -87,9 +87,9 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 			$scope.pages = [];
 			for(i = 0; i < $scope.lists.length/$scope.listPerPageLimit; i++){
 				if($scope.page-1 == i){
-					$scope.pages.push('radio_button_checked');
+					$scope.pages.push({id: i +1, color: '#0277bd'});
 				}else{
-					$scope.pages.push('radio_button_unchecked');
+					$scope.pages.push({id: i +1, color: '#000000'});
 				}
 			}
 		}

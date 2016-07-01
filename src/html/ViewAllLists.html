@@ -17,14 +17,34 @@
 </div>
 <div class="row" ng-repeat="list in lists | limitTo: listPerPageLimit : listPageIndex| filter:searchName | orderBy : 'name' : listSort">
 	<div class="col s4"><h4>{{list}}</h4></div>
-	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)"><i class="material-icons">mode_edit</i></button></h4></div>
-	<div class="col s4"><h4><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)"><i class="material-icons">delete</i></button></h4></div>
+	<div class="col s4"><h4>
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
+			<i class="material-icons">mode_edit</i>
+		</button></h4>
+	</div>
+	<div class="col s4"><h4>
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)">
+			<i class="material-icons">delete</i>
+		</button></h4>
+	</div>
 </div>
 <div class="row">
-	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()"><i class="material-icons">navigate_before</i></button></div>
-	<div class="col s4"><i ng-repeat="page in pages | limitTo: 5" class="material-icons">{{page}}</i></div>
-	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()"><i class="material-icons">navigate_next</i></button></div>
+	<div class="col s4">
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()">
+			<i class="material-icons">navigate_before</i>
+		</button>
+	</div>
+	<div class="col s2" ng-repeat="page in pages | limitTo: 5"><h4 style="color: {{page.color}}">{{page.id}}</h4></div>
+	<div class="col s4">
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()">
+			<i class="material-icons">navigate_next</i>
+		</button>
+	</div>
 </div>
 <div class="row">
-	<div class="col s12"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="NewList()"><i class="material-icons">note_add</i></button></div>
+	<div class="col s12">
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="NewList()">
+			<i class="material-icons">note_add</i>
+		</button>
+	</div>
 </div>
