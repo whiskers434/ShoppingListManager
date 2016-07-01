@@ -3,16 +3,22 @@ var webService = express();
 var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 
+var port = process.env.PORT || 3000;
+
 webService.use(bodyParser.json()); // for parsing application/json
 webService.use(bodyParser.urlencoded({ extended: true })); // for parsing
-
-//var port = process.env.PORT || 3001;
-var port = 3001
 
 webService.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
+});
+
+webService.use(express.static(__dirname + '/src'));
+
+//Points to html doc to use when the localhost is loaded?
+webService.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
 webService.get('/getProductList', function(req, res, next){
