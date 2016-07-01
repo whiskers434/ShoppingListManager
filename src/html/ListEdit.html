@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="input-field col s4">
 		<i class="material-icons prefix">mode_edit</i>
-		<label for="list_name" ng-hide="uniqueName">List Name</label>
+		<label id="list_name_label" for="list_name" ng-hide="uniqueName">List Name</label>
 		<label for="list_name" ng-show="uniqueName" style="color: #d50000;">List name not unique</label>
 		<input id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}"></input></h4>
 		
@@ -27,9 +27,9 @@
 <div class="row">
 	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()"><i class="material-icons">home</i></button></div>
 	<div class="col s4">
-		<select id="productSelect" class="browser-default light-blue lighten-3" ng-model="selectedItem">
+		<select id="productSelect" class="browser-default light-blue lighten-3" ng-options="item for item in products"ng-model="selectedItem"> 
 			<option value="" disabled selected>Select Product</option>
-			<option ng-repeat="item in products" value="{{item}}">{{item}}</option>
+			<!-- <option ng-repeat="item in products" value="{{item}}">{{item}}</option> -->
 	    </select>
 	</div>
 	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="AddItem()"><i class="material-icons">add</i></button></div>

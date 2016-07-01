@@ -135,6 +135,9 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	                $scope.list = response.data;
 	                $scope.listCopy = JSON.parse(JSON.stringify($scope.list));
 	                $scope.listName = $scope.list.name;
+	               	if($scope.listName != ""){
+	               		$('#list_name_label').addClass("active");
+	               	}
 	                $scope.items = $scope.list.items
 	                UpdateProductList();
 	            }, function (error) {
@@ -165,6 +168,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 				}
 			}
 			$scope.items = $scope.list.items
+			$("#productSelect option:selected").remove();
 		};
 
 		$scope.AddItem = function() {
@@ -189,8 +193,8 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 				item.quantity--;
 			}else{
 				$scope.list.items.splice($scope.list.items.indexOf(item),1);
-				$scope.products = JSON.parse(JSON.stringify($scope.productsList));
-				$scope.UpdateProductList();
+				$scope.products = JSON.parse(JSON.stringify($scope.productsCopy));
+				UpdateProductList();
 			}
 		};
 		$scope.UpdateListName = function() {
