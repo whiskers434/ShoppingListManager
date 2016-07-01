@@ -25,12 +25,14 @@ module.exports = {
 		    	return console.log(err);
 		  	}
 		  	this.lists = [];
-			for(i = 0; i < files.length; i++){
-				var name = files[i].substring(0,files[i].indexOf('.txt'))
-				if(this.lists === undefined){
-					this.lists = [name];
-				}else{
-					this.lists.push(name);
+		  	if(files != undefined){
+				for(i = 0; i < files.length; i++){
+					var name = files[i].substring(0,files[i].indexOf('.txt'))
+					if(this.lists === undefined){
+						this.lists = [name];
+					}else{
+						this.lists.push(name);
+					}
 				}
 			}
 			res.send(lists);
