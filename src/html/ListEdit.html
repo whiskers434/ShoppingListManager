@@ -1,18 +1,23 @@
 <div class="row">
-	<div class="input-field col s4">
+	<div class="input-field col s3">
 		<i class="material-icons prefix">mode_edit</i>
 		<label id="list_name_label" for="list_name" ng-hide="uniqueName">List Name</label>
 		<label for="list_name" ng-show="uniqueName" style="color: #d50000;">List name not unique</label>
 		<input id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}"></input></h4>
 	</div>
-	<div class="col s4" >
+	<div class="col s3" >
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="SaveList()" ng-disabled="ShowSaveListButton()">
 			<i class="material-icons">save</i>
 		</button>
 	</div>
-	<div class="col s4">
+	<div class="col s3">
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Cancel()" ng-disabled="ShowCancelListButton()">
 			<i class="material-icons">cancel</i>
+		</button>
+	</div>
+	<div class="col s3">
+		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
+			<i class="material-icons">backspace</i>
 		</button>
 	</div>
 </div>
@@ -37,11 +42,7 @@
 	</button></div>
 </div>
 <div class="row">
-	<div class="col s4">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
-			<i class="material-icons">home</i>
-		</button>
-	</div>
+	<div class="col s2"><br></div>
 	<div class="col s4">
 		<select id="productSelect" class="browser-default light-blue lighten-3" ng-options="item for item in products"ng-model="selectedItem"> 
 			<option value="" disabled selected>Select Product</option>
