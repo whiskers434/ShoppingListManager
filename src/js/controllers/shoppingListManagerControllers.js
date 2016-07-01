@@ -172,13 +172,15 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 		};
 
 		$scope.AddItem = function() {
-			var item = {name: $scope.selectedItem, quantity: 1};
-			if($scope.list.items === undefined){
-				$scope.list.items = [item];
-			}else{
-				$scope.list.items.push(item);
+			if($scope.selectedItem != null){
+				var item = {name: $scope.selectedItem, quantity: 1};
+				if($scope.list.items === undefined){
+					$scope.list.items = [item];
+				}else{
+					$scope.list.items.push(item);
+				}
+				UpdateProductList();
 			}
-			UpdateProductList();
 		};
 		$scope.DeleteItem = function(item) {
 			$scope.list.items.splice($scope.list.items.indexOf(item),1);
