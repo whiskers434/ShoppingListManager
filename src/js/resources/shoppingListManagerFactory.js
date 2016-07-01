@@ -2,7 +2,7 @@ angular.module('shoppingListManagerFactory', [])
 .factory('shoppingListManager', ['$http', 
 	function ($http) {
 		var shoppingListManager = {};
-		var webServicePort = 'http://localhost:3001';
+		var webServicePort = 'https://localhost:3001';
 
 		shoppingListManager.getProducts = function(){ 
 			console.log('get products');
