@@ -22,7 +22,9 @@ module.exports = {
 	ReadListsFromFiles: function (res){
 		fs.readdir('src/txt/lists', 'utf8', function (err, files) {
 			if (err) {
-		    	return console.log(err);
+				console.log('Error reading directory: src/txt/lists');
+				console.log(err);
+		    	return; 
 		  	}
 		  	this.lists = [];
 		  	if(files != undefined){
