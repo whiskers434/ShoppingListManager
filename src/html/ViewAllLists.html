@@ -1,10 +1,19 @@
 <div class="row">
 	<div class="col s6">
-		<h4>List Name
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="listNameSort()" ng-show="listSort"><i class="material-icons" >arrow_drop_up</i></button>
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="listNameSort()" ng-hide="listSort"><i class="material-icons" >arrow_drop_down</i></button></h4>
-	</a></div>
-	<div class="col s4"><h3><input placeholder="Search Lists" type="text" ng-model="searchName" class="validate" ng-change="listNameSearch()"><h3></div>
+	    <a href="" ng-click="listNameSort()">
+		    <h4>
+			    List Name
+				<i class="material-icons" ng-show="listSort">arrow_drop_up</i>
+				<i class="material-icons" ng-hide="listSort">arrow_drop_down</i>
+			</h4>
+		</a>
+	</div>
+	<div class="input-field col s5">
+		<i class="material-icons prefix">search</i>
+		<label for="search">Search Lists</label>
+		<input id="search" class="validate" type="text" ng-model="searchName" ng-change="listNameSearch()">
+		
+	</div>
 </div>
 <div class="row" ng-repeat="list in lists | limitTo: listPerPageLimit : listPageIndex| filter:searchName | orderBy : 'name' : listSort">
 	<div class="col s4"><h4>{{list}}</h4></div>

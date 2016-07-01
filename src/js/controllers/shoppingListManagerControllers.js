@@ -39,6 +39,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 			$scope.lists.splice($scope.lists.indexOf(list),1);
 			$scope.page = 1;
 			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+			$scope.getPages();
 		};
 		$scope.listNameSearch = function (){
 			$scope.page = 1;
