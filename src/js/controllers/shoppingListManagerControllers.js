@@ -69,6 +69,11 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 				$scope.getPages();
 			}
 		}
+		$scope.goToPage = function (id){
+			$scope.page = id;
+			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
+			$scope.getPages();
+		}
 		$scope.CanPrev = function() {
 			if($scope.page > 1){
 				return false;
@@ -93,6 +98,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 				}
 			}
 		}
+
 	}
 ]);
 
