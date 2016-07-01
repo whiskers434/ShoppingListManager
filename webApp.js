@@ -3,11 +3,13 @@ var webApp = express();
 
 webApp.use(express.static(__dirname + '/src'));
 
+var port = process.env.PORT || 3000;
+
 //Points to html doc to use when the localhost is loaded?
 webApp.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-webApp.listen(3000, function(){
-  console.log('web application listening on 3000:');
+webApp.listen(port, function(){
+  console.log('web application listening on:' + port);
 });

@@ -6,8 +6,8 @@ var file = require('./fileReadWriter.js');
 webService.use(bodyParser.json()); // for parsing application/json
 webService.use(bodyParser.urlencoded({ extended: true })); // for parsing
 
-var webServiceUrl = 'http://localhost:';
-var webServicePort = '3001';
+//var port = process.env.PORT || 3001;
+var port = 3001
 
 webService.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -60,6 +60,6 @@ webService.post('/sendListRemove', function(req, res, next) {
     res.end();
 });
 
-webService.listen(3001, function(){
-  console.log('web service listening on : 3001');
+webService.listen(port, function(){
+  console.log('web service listening on :'+ port);
 });
