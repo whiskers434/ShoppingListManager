@@ -34,56 +34,6 @@ module.exports = {
 		}
 		res.send(this.lists);
 		res.end();
-		/*
-		fs.readdir('src/txt/lists', 'utf8', function (err, files) {
-			if (err) {
-				console.log('Error reading directory: src/txt/lists');
-				console.log(err);
-		    	return; 
-		  	}
-		  	this.lists = [];
-		  	if(files != undefined){
-				for(i = 0; i < files.length; i++){
-					var name = files[i].substring(0,files[i].indexOf('.txt'))
-					if(this.lists === undefined){
-						this.lists = [name];
-					}else{
-						this.lists.push(name);
-					}
-				}
-			}
-			res.send(lists);
-			res.end();
-		});
-		*/
-	},
-
-	WriteListsToFiles: function (lists){
-		for(var i = 0; i < lists.length; i++){
-			WriteListToFile(lists[i]);
-		}
-		fs.readdir('src/txt/lists', 'utf8', function(err, files) {
-			if (err) {
-		    	return console.log(err);
-		  	}
-			console.log('List of files: ' + files);
-			for(i = 0; i < files.length; i++){
-				for(var ii = 0; ii < lists.length; ii++){
-					if(files[i] === (lists[ii].name + ".txt")){
-						files.splice(i,1);
-						i--;
-					}
-				}
-				
-			}
-			for(iii = 0; iii < files.length; iii++){
-				 fs.unlink('src/txt/lists/' + files[iii], function(err){
-			        if (err) {
-				    	return console.log(err);
-				  	}
-	          });
-			}
-		});
 	},
 
 	RemoveListFromFile: function (list){

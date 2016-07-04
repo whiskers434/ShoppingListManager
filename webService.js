@@ -23,10 +23,7 @@ module.exports = function(webService){
 
 	webService.post('/getList', function(req, res, next){
 		console.log('get List');
-		console.log(req.body);
 		var listNew = req.body.list;
-		//var listNew = 'List1';
-		console.log('get List');
 		console.log(listNew);
 		if(listNew != undefined){
 			file.ReadListFromFile(listNew, res);
@@ -41,10 +38,7 @@ module.exports = function(webService){
 		var i = file.lists.indexOf(listNew.name);
 		if(i == -1){
 			file.lists.push(listNew.name);
-		}else{
-			file.lists[i] = listNew.name;
 		}
-	    res.end();
 	});
 
 	webService.post('/sendListRemove', function(req, res, next) {
@@ -53,6 +47,5 @@ module.exports = function(webService){
 		console.log(listRemove);
 		file.RemoveListFromFile(listRemove)
 		file.lists.splice(file.lists.indexOf(listRemove),1);
-	    res.end();
 	});
 }
