@@ -16,13 +16,13 @@
 	</div>
 </div>
 <div id="list" class="row" ng-repeat="list in lists | filter:searchName | orderBy : 'name' : listSort | limitTo: listPerPageLimit : listPageIndex">
-	<div class="col s4"><h4 id="ListName">{{list}}</h4></div>
-	<div class="col s4"><h4 id="ListEdit">
+	<div class="col s4"><h4 id="listName">{{list}}</h4></div>
+	<div class="col s4"><h4 id="listEdit">
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
 			<i class="material-icons">mode_edit</i>
 		</button></h4>
 	</div>
-	<div class="col s4"><h4 id="ListDelete">
+	<div class="col s4"><h4 id="listDelete">
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)">
 			<i class="material-icons">delete</i>
 		</button></h4>
