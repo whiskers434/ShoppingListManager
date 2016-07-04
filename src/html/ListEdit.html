@@ -6,22 +6,22 @@
 		<input id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}"></input></h4>
 	</div>
 	<div class="col s3" >
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="SaveList()" ng-disabled="ShowSaveListButton()">
+		<button id="saveList" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="SaveList()" ng-disabled="ShowSaveListButton()">
 			<i class="material-icons">save</i>
 		</button>
 	</div>
 	<div class="col s3">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Cancel()" ng-disabled="ShowCancelListButton()">
+		<button id="cancelList" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Cancel()" ng-disabled="ShowCancelListButton()">
 			<i class="material-icons">cancel</i>
 		</button>
 	</div>
 	<div class="col s3">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
+		<button id="home" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
 			<i class="material-icons">backspace</i>
 		</button>
 	</div>
 	<div class="col s4">
-		<div ng-show="saved" class="chip light-green accent-3">
+		<div id="saved" ng-show="saved" class="chip light-green accent-3">
 	    	Your changes have been saved
 	  	</div>
 	</div>
@@ -31,9 +31,9 @@
 	<div class="col s4"><h4>Quantity</h4></div>
 	<div class="col s4"><h4>Remove</h4></div>
 </div>
-<div class="row" ng-repeat="item in items">
-	<div class="col s4"><h5>{{item.name}}</h5></div>
-	<div class="col s4"><h5>
+<div id="item" class="row" ng-repeat="item in items">
+	<div class="col s4"><h5 id="itemName">{{item.name}}</h5></div>
+	<div class="col s4"><h5 id="itemQuantity">
 		<button class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="IncreaseQuantity(item)">
 			<i class="material-icons">exposure_plus_1</i>
 		</button>
@@ -42,7 +42,7 @@
 			<i class="material-icons">exposure_neg_1</i>
 		</button></h5>
 	</div>
-	<div class="col s4"><button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteItem(item)">
+	<div class="col s4"><button id="deleteItem" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteItem(item)">
 		<i class="material-icons">delete</i>
 	</button></div>
 </div>
@@ -54,7 +54,7 @@
 	    </select>
 	</div>
 	<div class="col s4">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="AddItem()">
+		<button id="addItem" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="AddItem()">
 			<i class="material-icons">add</i>
 		</button>
 	</div>
