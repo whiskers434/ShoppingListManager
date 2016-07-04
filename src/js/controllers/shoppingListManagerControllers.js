@@ -131,6 +131,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 		$scope.products = []; //array of item product names
 		$scope.uniqueName = false; //false if list name is unique, true if list name is not unique
 		$scope.saved = false; //true if the list is saved
+		$scope.name = ""; //name of list being edited incase of rename
 
 		$scope.productsCopy= []; //copy of products names
 		$scope.listCopy = {}; //copy of current list being edited
@@ -162,6 +163,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	                $scope.list = response.data;
 	                $scope.listCopy = JSON.parse(JSON.stringify($scope.list));
 	                $scope.listName = $scope.list.name;
+	                $scope.name = JSON.parse(JSON.stringify($scope.list.name));
 	               	if($scope.listName != ""){
 	               		$('#list_name_label').addClass("active");
 	               	}
@@ -241,7 +243,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 				if($scope.uniqueName == true){
 					alert("List name not unique");
 				}else{
-					shoppingListManager.sendList($scope.list);
+					shoppingListManager.sendList({list: $scope.list, oldName: $scope.name});
 					$scope.listCopy = JSON.parse(JSON.stringify($scope.list));
 					$scope.saved = true;
 					setTimeout(function(){ $scope.saved = false; }, 1000);

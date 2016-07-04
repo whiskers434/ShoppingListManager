@@ -31,13 +31,19 @@ module.exports = function(webService){
 	});
 
 	webService.post('/sendList', function(req, res, next) {
-	    var listNew = req.body;
+	    var listNew = req.body.list;
+	    var listOld = req.body.oldName;
 		console.log('sendList');
-		console.log(listNew);
+		console.log(listNew.name);
+		console.log(listOld);
 		file.WriteListToFile(listNew)
 		var i = file.lists.indexOf(listNew.name);
 		if(i == -1){
 			file.lists.push(listNew.name);
+			if(listOld != ""){
+				file.RemoveListFromFile(listOld)
+				file.lists.splice(file.lists.indexOf(listOld),1);
+			}
 		}
 	});
 
