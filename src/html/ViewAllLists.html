@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col s6">
-	    <a href="" ng-click="listNameSort()">
+	    <a id="listSort" href="" ng-click="listNameSort()">
 		    <h4>
 			    List Name
 				<i class="material-icons" ng-show="listSort">arrow_drop_up</i>
@@ -15,14 +15,14 @@
 		
 	</div>
 </div>
-<div class="row" ng-repeat="list in lists | filter:searchName | orderBy : 'name' : listSort | limitTo: listPerPageLimit : listPageIndex">
-	<div class="col s4"><h4>{{list}}</h4></div>
-	<div class="col s4"><h4>
+<div id="list" class="row" ng-repeat="list in lists | filter:searchName | orderBy : 'name' : listSort | limitTo: listPerPageLimit : listPageIndex">
+	<div class="col s4"><h4 id="ListName">{{list}}</h4></div>
+	<div class="col s4"><h4 id="ListEdit">
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
 			<i class="material-icons">mode_edit</i>
 		</button></h4>
 	</div>
-	<div class="col s4"><h4>
+	<div class="col s4"><h4 id="ListDelete">
 		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)">
 			<i class="material-icons">delete</i>
 		</button></h4>
@@ -45,7 +45,7 @@
 </div>
 <div class="row">
 	<div class="col s12">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="NewList()">
+		<button id="newList" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="NewList()">
 			<i class="material-icons">note_add</i>
 		</button>
 	</div>
