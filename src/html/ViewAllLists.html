@@ -30,15 +30,15 @@
 </div>
 <div class="row">
 	<div class="col s4">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()">
+		<button id="pagerPrev" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()">
 			<i class="material-icons">navigate_before</i>
 		</button>
 	</div>
-	<div class="col s2" ng-repeat="page in pages | limitTo: 5">
-		<a href="" ng-click="goToPage(page.id)"><h4 style="color: {{page.color}}">{{page.id}}</h4></a>
+	<div id="pagerPage" class="col s2" ng-repeat="page in pages | limitTo: 5">
+		<a href="" ng-click="goToPage(page.id)"><h4 id="pagerPageNum" style="color: {{page.color}}">{{page.id}}</h4></a>
 	</div>
 	<div class="col s4">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()">
+		<button id="pagerNext" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()">
 			<i class="material-icons">navigate_next</i>
 		</button>
 	</div>
