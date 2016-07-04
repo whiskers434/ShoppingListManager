@@ -2,7 +2,7 @@
 	<div class="input-field col s3">
 		<i class="material-icons prefix">mode_edit</i>
 		<label id="list_name_label" for="list_name" ng-hide="uniqueName">List Name</label>
-		<label for="list_name" ng-show="uniqueName" style="color: #d50000;">List name not unique</label>
+		<label id="list_name_unique" for="list_name" ng-show="uniqueName" style="color: #d50000;">List name not unique</label>
 		<input id="list_name" type="text" ng-model="listName" ng-change="UpdateListName()" class="validate" value="{{listName}}"></input></h4>
 	</div>
 	<div class="col s3" >
@@ -34,11 +34,11 @@
 <div id="item" class="row" ng-repeat="item in items">
 	<div class="col s4"><h5 id="itemName">{{item.name}}</h5></div>
 	<div class="col s4"><h5 id="itemQuantity">
-		<button class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="IncreaseQuantity(item)">
+		<button id="itemQuantityPlus" class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="IncreaseQuantity(item)">
 			<i class="material-icons">exposure_plus_1</i>
 		</button>
 		{{item.quantity}}
-		<button class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="DecreaseQuantity(item)">
+		<button id="itemQuantityMinus" class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="DecreaseQuantity(item)">
 			<i class="material-icons">exposure_neg_1</i>
 		</button></h5>
 	</div>
