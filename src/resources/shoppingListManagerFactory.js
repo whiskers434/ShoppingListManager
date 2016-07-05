@@ -18,7 +18,7 @@ angular.module('shoppingListManagerFactory', [])
 			return $http.get('/getList/' + list);
 		};
 
-		shoppingListManager.sendList = function(list) {
+		shoppingListManager.writeList = function(list) {
 			//console.log('send list');
 			//console.log(list);
 			$http.post('/writeList', list).
@@ -29,10 +29,10 @@ angular.module('shoppingListManagerFactory', [])
 	        });
 		};
 
-		shoppingListManager.sendListRemove = function(list) {
+		shoppingListManager.deleteList = function(list) {
 			//console.log('send list remove');
 			//console.log(list);
-			$http.post('/deleteRemove', {list}).
+			$http.post('/deleteList', {list}).
 		        success(function(data) {
 		            console.log("posted successfully");
 		        }).error(function(data) {

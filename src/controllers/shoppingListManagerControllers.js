@@ -23,7 +23,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		$scope.NewList = function() {
 			//console.log("New list");
 			//change to the edit page for a new list
-			$location.path("/listEdit/:");
+			$location.path("/listEdit/ ");
 			//$location.search('list', null);
 		};
 		$scope.EditList = function(list) {
@@ -33,7 +33,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		};
 		$scope.DeleteList = function(list) {
 			//delete list
-			shoppingListManager.sendListRemove(list);
+			shoppingListManager.deleteList(list);
 			$scope.lists.splice($scope.lists.indexOf(list),1);
 		};
 		$scope.listNameSort = function() {
@@ -170,7 +170,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$routePara
 				if($scope.uniqueName == true){
 					alert("List name not unique");
 				}else{
-					shoppingListManager.sendList({list: $scope.list, oldName: $scope.name});
+					shoppingListManager.writeList({list: $scope.list, oldName: $scope.name});
 					$scope.listCopy = JSON.parse(JSON.stringify($scope.list));
 					$scope.saved = true;
 					setTimeout(function(){ $scope.saved = false; }, 1000);

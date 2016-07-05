@@ -1,4 +1,9 @@
 <list>
   <name>list5</name>
-  <items/>
+  <items>
+    <item>
+      <name>Apple</name>
+      <quantity>1</quantity>
+    </item>
+  </items>
 </list>
