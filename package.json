@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular-utils-pagination": "^0.11.1",
     "body-parser": "^1.15.2",
     "express": "^4.13.4",
     "xml2js": "^0.4.16",

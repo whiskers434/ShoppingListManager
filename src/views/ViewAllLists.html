@@ -16,37 +16,26 @@
 	<div class="input-field col s5">
 		<i class="material-icons prefix">search</i>
 		<label for="search">Search Lists</label>
-		<input id="search" class="validate" type="text" ng-model="searchName" ng-change="listNameSearch()">
-		
+		<input id="search" class="validate" type="text" ng-model="searchName">
 	</div>
 </div>
-<div id="list" class="row" ng-repeat="list in lists | filter:searchName | orderBy : 'name' : listSort | limitTo: listPerPageLimit : listPageIndex">
-	<div class="col s4"><h4 id="listName">{{list}}</h4></div>
-	<div class="col s4"><h4 id="listEdit">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
-			<i class="material-icons">mode_edit</i>
-		</button></h4>
-	</div>
-	<div class="col s4"><h4 id="listDelete">
-		<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)">
-			<i class="material-icons">delete</i>
-		</button></h4>
-	</div>
-</div>
+<ul class="row">
+    <li id="list" pagination-id="list.id" dir-paginate="list in lists | itemsPerPage: 5 | filter:searchName | orderBy : 'name' : listSort">
+		<div class="col s4"><h4 id="listName">{{list}}</h4></div>
+		<div class="col s4"><h4 id="listEdit">
+			<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
+				<i class="material-icons">mode_edit</i>
+			</button></h4>
+		</div>
+		<div class="col s4"><h4 id="listDelete">
+			<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="DeleteList(list)">
+				<i class="material-icons">delete</i>
+			</button></h4>
+		</div>
+	</li>
+</ul>
 <div class="row">
-	<div class="col s4">
-		<button id="pagerPrev" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanPrev()" ng-click="PrevPage()">
-			<i class="material-icons">navigate_before</i>
-		</button>
-	</div>
-	<div id="pagerPage" class="col s2" ng-repeat="page in pages | limitTo: 5">
-		<a href="" ng-click="goToPage(page.id)"><h4 id="pagerPageNum" style="color: {{page.color}}">{{page.id}}</h4></a>
-	</div>
-	<div class="col s4">
-		<button id="pagerNext" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-disabled="CanNext()"ng-click="NextPage()">
-			<i class="material-icons">navigate_next</i>
-		</button>
-	</div>
+	<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
 </div>
 <div class="row">
 	<div class="col s12">

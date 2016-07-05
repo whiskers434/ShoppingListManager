@@ -5,10 +5,6 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		$scope.lists = []; //array of list names
 		$scope.listSort = false; //when false lists are sorted ASC, when true lists are sorted DSC
 		$scope.searchName; //search input field value
-		$scope.listPerPageLimit = 5; //number of lists to display on pager
-		$scope.page = 1; //page number of pager
-		$scope.listPageIndex = 0; //first index of list array for first list on current page of pager
-		$scope.pages; //total pages of pager
 
 		getLists();
 
@@ -19,7 +15,6 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	            	//console.log(response.data);
 	                $scope.lists = response.data;
 	                $scope.lists.sort();
-	                $scope.getPages();
 	            }, function (error) {
 	                $scope.status = 'Unable to load customer data: ' + error.message;
 	            });
@@ -40,17 +35,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 			//delete list
 			shoppingListManager.sendListRemove(list);
 			$scope.lists.splice($scope.lists.indexOf(list),1);
-			//reset pager with new amount of lists
-			$scope.page = 1;
-			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-			$scope.getPages();
 		};
-		$scope.listNameSearch = function (){
-			//reset pager with search input
-			$scope.page = 1;
-			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-			$scope.getPages();
-		}
 		$scope.listNameSort = function() {
 			//sort list toggle ASC or DSC
 			$scope.lists.sort();
@@ -59,65 +44,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 			}else{
 				$scope.listSort = false;
 			}
-			//reset pager with sort
-			$scope.page = 1;
-			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-			$scope.getPages();
 		};
-		$scope.PrevPage = function() {
-			//if current page is not the first page
-			if($scope.page > 1){
-				//go back one page
-				$scope.page -= 1;
-				//update pager with new page
-				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-				$scope.getPages();
-			}
-		}
-		$scope.NextPage = function() {
-			//if current page is not last page
-			if($scope.page < $scope.lists.length/$scope.listPerPageLimit){
-				//go forward one page
-				$scope.page += 1;
-				//update pager with new page
-				$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-				$scope.getPages();
-			}
-		}
-		$scope.goToPage = function (id){
-			//go to page of id
-			$scope.page = id;
-			//update pager with new page
-			$scope.listPageIndex = (($scope.page -1) * $scope.listPerPageLimit);
-			$scope.getPages();
-		}
-		$scope.CanPrev = function() { //enable or disable prev button of pager
-			//if current page is not the first page
-			if($scope.page > 1){
-				return false;
-			}else{
-				return true;
-			}
-		}
-		$scope.CanNext = function() { //enable or disable next button of pager
-			//if current page is not last page
-			if($scope.page < $scope.lists.length/$scope.listPerPageLimit){
-				return false;
-			}else{
-				return true;
-			}
-		}
-		$scope.getPages = function() { //draw page numbers of pager
-			$scope.pages = [];
-			for(i = 0; i < $scope.lists.length/$scope.listPerPageLimit; i++){
-				if($scope.page-1 == i){ 
-					$scope.pages.push({id: i +1, color: '#0277bd'});
-				}else{
-					$scope.pages.push({id: i +1, color: '#000000'});
-				}
-			}
-		}
-
 	}
 ]);
 

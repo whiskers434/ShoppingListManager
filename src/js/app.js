@@ -1,4 +1,4 @@
-var shoppingListManagerApp = angular.module('ShoppingListManagerApp', ['ngRoute','shoppingListManagerControllers', 'shoppingListManagerFactory']);
+var shoppingListManagerApp = angular.module('ShoppingListManagerApp', ['ngRoute','angularUtils.directives.dirPagination','shoppingListManagerControllers', 'shoppingListManagerFactory']);
 shoppingListManagerApp.config(function($routeProvider){
 $routeProvider.
 	when('/', {
