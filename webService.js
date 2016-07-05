@@ -22,16 +22,16 @@ module.exports = function(app){
 
 	app.get('/getLists', function(req, res , next){
 		console.log('getLists');
-		res.send(file.lists;
+		res.send(file.lists);
 		res.end();
 	});
 
 	app.get('/getList', function(req, res, next){
+		var listName = req.query.list;
 		console.log('get List');
-		var listNew = req.body.list;
-		console.log(listNew);
-		if(listNew != undefined){
-			res.send(file.ReadListFromFile(listNew));
+		console.log(listName);
+		if(listName != undefined){
+			res.send(file.ReadListFromFile(listName));
 		    res.end();	
 		}
 	});

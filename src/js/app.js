@@ -2,11 +2,11 @@ var shoppingListManagerApp = angular.module('ShoppingListManagerApp', ['ngRoute'
 shoppingListManagerApp.config(function($routeProvider){
 $routeProvider.
 	when('/', {
-		templateUrl: '/html/ViewAllLists.html',
+		templateUrl: '/views/ViewAllLists.html',
 		controller: 'ViewAllListsCtrl'
 	}).
 	when('/listEdit', {
-		templateUrl: '/html/ListEdit.html',
+		templateUrl: '/views/ListEdit.html',
 		controller: 'ListEditCtrl'
 	}).
 	otherwise({

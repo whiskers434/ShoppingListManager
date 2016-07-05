@@ -7,13 +7,13 @@ module.exports = {
 	lists: [null],
 
 	GetProductListFromFile: function (res){
-	    var items = fs.readFileSync('src/txt/ProductList.txt', 'utf8');
+	    var items = fs.readFileSync('config/ProductList.txt', 'utf8');
 		this.products = items.split("\n");
 		return this.products;
 	},
 
 	ReadListsFromFiles: function (res){
-		var files = fs.readdirSync('src/txt/lists');
+		var files = fs.readdirSync('data/lists');
 		this.lists = [];
 	  	if(files != undefined){
 			for(i = 0; i < files.length; i++){
@@ -30,20 +30,21 @@ module.exports = {
 
 	RemoveListFromFile: function (list){
 		var name = list + ".txt";
-		fs.unlink('src/txt/lists/' + name, function(err){
+		fs.unlink('data/lists/' + name, function(err){
 			if (err) {
 				return console.log(err);
 			}
 	    });
 	},
 
-	ReadListFromFile: function (list, res){
-		var name =  list + '.txt';
-		var data = fs.readFile('src/txt/lists/' + name, 'utf8');
-	  	console.log("read file test:" + data);
+	ReadListFromFile: function (listName, res){
+		var name =  listName + '.txt';
+		var data = fs.readFileSync('data/lists/' + name, 'utf8');
+		var list = {};
+	  	//console.log("read file test:" + data);
 	  	parseXMLstring(data, function (err, result) {
 		    //console.log(result);
-		    var list = { name: result.list.name[0], items: []};
+		    list = { name: result.list.name[0], items: []};
 		    if(result.list.items[0].item != undefined){
 		    for(var i = 0; i < result.list.items[0].item.length; i++){
 			    	var item = { name: result.list.items[0].item[i].name[0], quantity: result.list.items[0].item[i].quantity[0]};
@@ -54,8 +55,9 @@ module.exports = {
 			  		}
 			  	}
 			}
-		  	console.log(list);
+		  	//console.log(list);
 		});
+		return list;
 	},
 
 	WriteListToFile: function (list){
@@ -73,7 +75,7 @@ module.exports = {
 			 
 			//console.log(xml);
 
-		fs.writeFile('src/txt/lists/' + name, xml, 'utf8', function(err) {
+		fs.writeFile('data/lists/' + name, xml, 'utf8', function(err) {
 			if (err) {
 		    	return console.log(err);
 		  	}

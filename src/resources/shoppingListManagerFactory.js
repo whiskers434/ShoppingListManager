@@ -15,7 +15,7 @@ angular.module('shoppingListManagerFactory', [])
 
 		shoppingListManager.getList = function(list){
 			console.log('get list ' + list);
-			return $http.get('/getList/');
+			return $http.get('/getList',{params: {list: list}});
 		};
 
 		shoppingListManager.sendList = function(list) {

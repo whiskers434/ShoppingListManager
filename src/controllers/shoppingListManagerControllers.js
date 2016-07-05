@@ -28,7 +28,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		$scope.NewList = function() {
 			console.log("New list");
 			//change to the edit page for a new list
-			$location.path("/listEdit");
+			$location.path("/listEdit/");
 			$location.search('list', null);
 		};
 		$scope.EditList = function(list) {
