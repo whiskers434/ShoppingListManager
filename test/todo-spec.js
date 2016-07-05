@@ -25,38 +25,6 @@ describe('Shopping List Manager Tester', function() {
         });   
     });
 
-    it('should have a pager that works', function() {
-        //check pager
-        expect(element(by.id('pagerNext')).isPresent()).toBe(true);
-        expect(element(by.id('pagerPrev')).isPresent()).toBe(true);
-         element.all(by.id('pagerPage')).then(function(elements) {
-          //elements is an array of ElementFinders
-          for(i = 0; i < elements.length; i ++){
-            //check list name
-            expect(elements[i].element(by.id('pagerPageNum')).getText() == i+1); 
-          }
-          expect(elements[0].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(2, 119, 189, 1)");
-          expect(elements[1].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(0, 0, 0, 1)");
-          expect(element(by.id('pagerNext')).getAttribute('disabled')).toEqual(null);
-          expect(element(by.id('pagerPrev')).getAttribute('disabled')).toEqual('true');
-          element(by.id('pagerNext')).click();
-        });   
-        element.all(by.id('pagerPage')).then(function(elements) {
-          //elements is an array of ElementFinders
-          expect(elements[0].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(0, 0, 0, 1)");
-          expect(elements[1].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(2, 119, 189, 1)");
-          expect(element(by.id('pagerNext')).getAttribute('disabled')).toEqual('true');
-          expect(element(by.id('pagerPrev')).getAttribute('disabled')).toEqual(null);
-          element(by.id('pagerPrev')).click();
-        }); 
-        element.all(by.id('pagerPage')).then(function(elements) {
-          expect(elements[0].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(2, 119, 189, 1)");
-          expect(elements[1].element(by.id('pagerPageNum')).getCssValue("color")).toEqual("rgba(0, 0, 0, 1)");
-          expect(element(by.id('pagerNext')).getAttribute('disabled')).toEqual(null);
-          expect(element(by.id('pagerPrev')).getAttribute('disabled')).toEqual('true');
-        });   
-    });
-
     it('should have list name to sort lists', function() {
         var sort = element(by.id('listSort'));
         var list = [];
