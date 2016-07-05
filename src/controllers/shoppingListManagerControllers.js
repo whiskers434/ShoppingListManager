@@ -15,8 +15,8 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	    function getLists() {
 	        shoppingListManager.getLists()
 	            .then(function (response) {
-	            	console.log("got lists");
-	            	console.log(response.data);
+	            	//console.log("got lists");
+	            	//console.log(response.data);
 	                $scope.lists = response.data;
 	                $scope.lists.sort();
 	                $scope.getPages();
@@ -26,7 +26,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	    }
 
 		$scope.NewList = function() {
-			console.log("New list");
+			//console.log("New list");
 			//change to the edit page for a new list
 			$location.path("/listEdit/");
 			$location.search('list', null);
@@ -143,8 +143,8 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 		function getProducts() {
 	        shoppingListManager.getProducts()
 	            .then(function (response) {
-	            	console.log("got products");
-	            	console.log(response.data);
+	            	//console.log("got products");
+	            	//console.log(response.data);
 	                $scope.products = response.data;
 	                $scope.products.sort();
 	                $scope.productsCopy = JSON.parse(JSON.stringify($scope.products));
@@ -158,8 +158,8 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	    	var search = $location.search();
 	        shoppingListManager.getList(search.list)
 	            .then(function (response) {
-	            	console.log("got list");
-	            	console.log(response.data);
+	            	//console.log("got list");
+	            	//console.log(response.data);
 	                $scope.list = response.data;
 	                $scope.listCopy = JSON.parse(JSON.stringify($scope.list));
 	                $scope.listName = $scope.list.name;
@@ -177,8 +177,8 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	    function getLists() {
 	        shoppingListManager.getLists()
 	            .then(function (response) {
-	            	console.log("got lists");
-	            	console.log(response.data);
+	            	//console.log("got lists");
+	            	//console.log(response.data);
 	                $scope.lists = response.data;
 	            }, function (error) {
 	                $scope.status = 'Unable to load customer data: ' + error.message;
