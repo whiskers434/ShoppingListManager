@@ -1,5 +1,5 @@
-module.exports = function(webApp){
-	webApp.get('/', function(req, res){
+module.exports = function(app){
+	app.get('/', function(req, res){
 	  res.sendFile(__dirname + '/index.html');
 	});
 }

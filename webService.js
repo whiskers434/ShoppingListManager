@@ -1,36 +1,42 @@
 var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 
-module.exports = function(webService){
-	webService.use(bodyParser.json()); // for parsing application/json
-	webService.use(bodyParser.urlencoded({ extended: true })); // for parsing
+file.GetProductListFromFile();
+file.ReadListsFromFiles();
 
-	webService.use(function(req, res, next) {
+module.exports = function(app){
+	app.use(bodyParser.json()); // for parsing application/json
+	app.use(bodyParser.urlencoded({ extended: true })); // for parsing
+
+	app.use(function(req, res, next) {
 	  res.header("Access-Control-Allow-Origin", "*");
 	  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	  next();
 	});
 
-	webService.get('/getProductList', function(req, res, next){
+	app.get('/getProductList', function(req, res, next){
 		console.log('getProductList');
-		file.GetProductListFromFile(res);
+		res.send(file.products);
+		res.end();
 	});
 
-	webService.get('/getLists', function(req, res , next){
+	app.get('/getLists', function(req, res , next){
 		console.log('getLists');
-		file.ReadListsFromFiles(res);
+		res.send(file.lists;
+		res.end();
 	});
 
-	webService.post('/getList', function(req, res, next){
+	app.get('/getList', function(req, res, next){
 		console.log('get List');
 		var listNew = req.body.list;
 		console.log(listNew);
 		if(listNew != undefined){
-			file.ReadListFromFile(listNew, res);
+			res.send(file.ReadListFromFile(listNew));
+		    res.end();	
 		}
 	});
 
-	webService.post('/sendList', function(req, res, next) {
+	app.post('/writeList', function(req, res, next) {
 	    var listNew = req.body.list;
 	    var listOld = req.body.oldName;
 		console.log('sendList');
@@ -47,7 +53,7 @@ module.exports = function(webService){
 		}
 	});
 
-	webService.post('/sendListRemove', function(req, res, next) {
+	app.post('/deleteList', function(req, res, next) {
 	    var listRemove = req.body.list;
 		console.log('sendListRemove');
 		console.log(listRemove);

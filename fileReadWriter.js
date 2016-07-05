@@ -7,16 +7,9 @@ module.exports = {
 	lists: [null],
 
 	GetProductListFromFile: function (res){
-	    fs.readFile('src/txt/ProductList.txt', 'utf8', function (err,data) {
-		  	if (err) {
-		    	return console.log(err);
-		  	}
-		  	var items = "";
-		  	items = data;
-		  	products = items.split("\n");
-		  	res.send(products);
-			res.end();
-		});
+	    var items = fs.readFileSync('src/txt/ProductList.txt', 'utf8');
+		this.products = items.split("\n");
+		return this.products;
 	},
 
 	ReadListsFromFiles: function (res){
@@ -32,8 +25,7 @@ module.exports = {
 				}
 			}
 		}
-		res.send(this.lists);
-		res.end();
+		return this.lists;
 	},
 
 	RemoveListFromFile: function (list){
@@ -47,28 +39,22 @@ module.exports = {
 
 	ReadListFromFile: function (list, res){
 		var name =  list + '.txt';
-		fs.readFile('src/txt/lists/' + name, 'utf8', function (err,data) {
-		  	if (err) {
-		    	return console.log(err);
-		  	}
-		  	console.log("read file test:" + data);
-		  	parseXMLstring(data, function (err, result) {
-			    //console.log(result);
-			    var list = { name: result.list.name[0], items: []};
-			    if(result.list.items[0].item != undefined){
-			    for(var i = 0; i < result.list.items[0].item.length; i++){
-				    	var item = { name: result.list.items[0].item[i].name[0], quantity: result.list.items[0].item[i].quantity[0]};
-						if(list.items === undefined){
-							list.items = [item];
-				  		}else{
-				  			list.items.push(item);
-				  		}
-				  	}
-				}
-			  	console.log(list);
-			    res.send(list);
-			    res.end();
-			});
+		var data = fs.readFile('src/txt/lists/' + name, 'utf8');
+	  	console.log("read file test:" + data);
+	  	parseXMLstring(data, function (err, result) {
+		    //console.log(result);
+		    var list = { name: result.list.name[0], items: []};
+		    if(result.list.items[0].item != undefined){
+		    for(var i = 0; i < result.list.items[0].item.length; i++){
+			    	var item = { name: result.list.items[0].item[i].name[0], quantity: result.list.items[0].item[i].quantity[0]};
+					if(list.items === undefined){
+						list.items = [item];
+			  		}else{
+			  			list.items.push(item);
+			  		}
+			  	}
+			}
+		  	console.log(list);
 		});
 	},
 

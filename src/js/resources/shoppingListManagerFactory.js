@@ -15,13 +15,13 @@ angular.module('shoppingListManagerFactory', [])
 
 		shoppingListManager.getList = function(list){
 			console.log('get list ' + list);
-			return $http.post('/getList', {list});
+			return $http.get('/getList/');
 		};
 
 		shoppingListManager.sendList = function(list) {
 			console.log('send list');
 			console.log(list);
-			$http.post('/sendList', list).
+			$http.post('/writeList', list).
 		        success(function(data) {
 		            console.log("posted successfully");
 		        }).error(function(data) {
@@ -32,7 +32,7 @@ angular.module('shoppingListManagerFactory', [])
 		shoppingListManager.sendListRemove = function(list) {
 			console.log('send list remove');
 			console.log(list);
-			$http.post('/sendListRemove', {list}).
+			$http.post('/deleteRemove', {list}).
 		        success(function(data) {
 		            console.log("posted successfully");
 		        }).error(function(data) {
