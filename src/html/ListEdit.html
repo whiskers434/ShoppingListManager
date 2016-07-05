@@ -33,11 +33,13 @@
 </div>
 <div id="item" class="row" ng-repeat="item in items">
 	<div class="col s4"><h5 id="itemName">{{item.name}}</h5></div>
-	<div class="col s4"><h5 id="itemQuantity">
+	<div class="col s1"><h5>
 		<button id="itemQuantityPlus" class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="IncreaseQuantity(item)">
 			<i class="material-icons">exposure_plus_1</i>
-		</button>
-		{{item.quantity}}
+		</button></h5>
+	</div>
+	<div class="col s2" id="itemQuantity"><h5>{{item.quantity}}</h5></div>
+	<div class="col s1"><h5>
 		<button id="itemQuantityMinus" class="btn-floating btn-medium waves-effect waves-light light-blue lighten-3" ng-click="DecreaseQuantity(item)">
 			<i class="material-icons">exposure_neg_1</i>
 		</button></h5>
