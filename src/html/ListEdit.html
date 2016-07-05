@@ -1,4 +1,15 @@
 <div class="row">
+	<div class="col s10">
+		<h2 id="MainHeading" class="center-align ">Shopping List Manager</h2>
+	</div>
+	<div class="col s2">
+	<br>
+		<button id="home" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</div>
+</div>
+<div class="row">
 	<div class="input-field col s3">
 		<i class="material-icons prefix">mode_edit</i>
 		<label id="list_name_label" for="list_name" ng-hide="uniqueName">List Name</label>
@@ -10,14 +21,9 @@
 			<i class="material-icons">save</i>
 		</button>
 	</div>
-	<div class="col s3">
+	<div class="col s2">
 		<button id="cancelList" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Cancel()" ng-disabled="ShowCancelListButton()">
 			<i class="material-icons">cancel</i>
-		</button>
-	</div>
-	<div class="col s3">
-		<button id="home" class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="Home()">
-			<i class="material-icons">backspace</i>
 		</button>
 	</div>
 	<div class="col s4">
