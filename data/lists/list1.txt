@@ -1,5 +1,5 @@
 <list>
-  <name>list1</name>
+  <name>listx</name>
   <items>
     <item>
       <name>Apple</name>
@@ -7,11 +7,15 @@
     </item>
     <item>
       <name>Orange</name>
-      <quantity>2</quantity>
+      <quantity>1</quantity>
     </item>
     <item>
       <name>Milk</name>
       <quantity>1</quantity>
+    </item>
+    <item>
+      <name>Bread</name>
+      <quantity>2</quantity>
     </item>
   </items>
 </list>
