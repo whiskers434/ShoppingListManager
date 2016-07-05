@@ -26,8 +26,8 @@ module.exports = function(app){
 		res.end();
 	});
 
-	app.get('/getList', function(req, res, next){
-		var listName = req.query.list;
+	app.get('/getList/:listName', function(req, res, next){
+		var listName = req.params.listName;
 		//console.log('get List');
 		//console.log(listName);
 		if(listName != undefined){

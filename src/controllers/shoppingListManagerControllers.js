@@ -23,13 +23,13 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		$scope.NewList = function() {
 			//console.log("New list");
 			//change to the edit page for a new list
-			$location.path("/listEdit/");
-			$location.search('list', null);
+			$location.path("/listEdit/:");
+			//$location.search('list', null);
 		};
 		$scope.EditList = function(list) {
 			//change to the edit page for list
-			$location.path("/listEdit");
-			$location.search('list', list);
+			$location.path("/listEdit/" + list);
+			//$location.search('list', list);
 		};
 		$scope.DeleteList = function(list) {
 			//delete list
@@ -48,8 +48,8 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	}
 ]);
 
-shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location', 'shoppingListManager',
-	function($scope, $location, shoppingListManager) {
+shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$routeParams', '$location', 'shoppingListManager',
+	function($scope, $routeParams, $location, shoppingListManager) {
 		$scope.selectedItem = null; //item value selected of product by drop down list
 		$scope.listName = ""; //text input value for list name
 		$scope.items = []; //array of items in the current list
@@ -82,8 +82,8 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 	    }
 
 	    function getList() {
-	    	var search = $location.search();
-	        shoppingListManager.getList(search.list)
+	        var list = $routeParams.listName;
+	        shoppingListManager.getList(list)
 	            .then(function (response) {
 	            	//console.log("got list");
 	            	//console.log(response.data);

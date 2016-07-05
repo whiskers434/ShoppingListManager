@@ -5,7 +5,7 @@ $routeProvider.
 		templateUrl: '/views/ViewAllLists.html',
 		controller: 'ViewAllListsCtrl'
 	}).
-	when('/listEdit', {
+	when('/listEdit/:listName', {
 		templateUrl: '/views/ListEdit.html',
 		controller: 'ListEditCtrl'
 	}).
