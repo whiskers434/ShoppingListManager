@@ -231,7 +231,7 @@ shoppingListManagerControllers.controller('ListEditCtrl', ['$scope', '$location'
 			$scope.list.name = $scope.listName;
 			$scope.uniqueName = false;
 			for(i = 0; i < $scope.lists.length; i++){
-				if($scope.list.name == $scope.lists[i]){
+				if($scope.list.name == $scope.lists[i] && $scope.list.name != $scope.name){
 					$scope.uniqueName = true;
 				}
 			}
