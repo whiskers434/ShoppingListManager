@@ -3,7 +3,7 @@
   <items>
     <item>
       <name>Apple</name>
-      <quantity>1</quantity>
+      <quantity>2</quantity>
     </item>
     <item>
       <name>Orange</name>

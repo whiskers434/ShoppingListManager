@@ -12,7 +12,7 @@ module.exports = {
 		return this.products;
 	},
 
-	ReadListsFromFiles: function (res){
+	GetListsFromDir: function (res){
 		var files = fs.readdirSync('data/lists');
 		this.lists = [];
 	  	if(files != undefined){
@@ -28,7 +28,7 @@ module.exports = {
 		return this.lists;
 	},
 
-	RemoveListFromFile: function (list){
+	DeleteListFile: function (list){
 		var name = list + ".txt";
 		fs.unlink('data/lists/' + name, function(err){
 			if (err) {

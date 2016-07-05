@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 
 file.GetProductListFromFile();
-file.ReadListsFromFiles();
+file.GetListsFromDir();
 
 module.exports = function(app){
 	app.use(bodyParser.json()); // for parsing application/json
@@ -57,7 +57,7 @@ module.exports = function(app){
 	    var listRemove = req.body.list;
 		//console.log('sendListRemove');
 		//console.log(listRemove);
-		file.RemoveListFromFile(listRemove)
+		file.DeleteListFile(listRemove)
 		file.lists.splice(file.lists.indexOf(listRemove),1);
 	});
 }
