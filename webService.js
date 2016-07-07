@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
-var db = require('./mongoDBtest.js');
+var db = require('./mongoDBReadWriter.js');
 
 file.GetProductListFromFile();
 file.GetListsFromDir();
