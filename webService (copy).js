@@ -1,6 +1,5 @@
 var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
-var db = require('./mongoDBtest.js');
 
 file.GetProductListFromFile();
 file.GetListsFromDir();
@@ -17,15 +16,13 @@ module.exports = function(app){
 
 	app.get('/getProductList', function(req, res, next){
 		//console.log('getProductList');
-		//console.log(db.getProducts());
-		res.send(db.getProducts());
+		res.send(file.products);
 		res.end();
 	});
 
 	app.get('/getLists', function(req, res , next){
 		//console.log('getLists');
-		//console.log(db.getLists());
-		res.send(db.getLists());
+		res.send(file.lists);
 		res.end();
 	});
 
@@ -34,19 +31,17 @@ module.exports = function(app){
 		//console.log('get List');
 		//console.log(listName);
 		if(listName != undefined){
-			res.send(db.getList(listName));
+			res.send(file.ReadListFromFile(listName));
 		    res.end();	
 		}
 	});
 
 	app.post('/writeList', function(req, res, next) {
-	    var newlist = req.body.list;
-	    var oldListName = req.body.oldName;
+	    var listNew = req.body.list;
+	    var listOld = req.body.oldName;
 		//console.log('sendList');
 		//console.log(listNew.name);
 		//console.log(listOld);
-		db.saveList(newlist, oldListName);
-		/*
 		file.WriteListToFile(listNew)
 		var i = file.lists.indexOf(listNew.name);
 		if(i == -1){
@@ -56,15 +51,13 @@ module.exports = function(app){
 				file.lists.splice(file.lists.indexOf(listOld),1);
 			}
 		}
-		*/
 	});
 
 	app.post('/deleteList', function(req, res, next) {
-	    var listNameToRemove = req.body.list;
+	    var listRemove = req.body.list;
 		//console.log('sendListRemove');
 		//console.log(listRemove);
-		db.deleteList(listNameToRemove);
-		//file.DeleteListFile(listRemove)
-		//file.lists.splice(file.lists.indexOf(listRemove),1);
+		file.DeleteListFile(listRemove)
+		file.lists.splice(file.lists.indexOf(listRemove),1);
 	});
 }
