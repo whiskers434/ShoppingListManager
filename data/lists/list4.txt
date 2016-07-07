@@ -1,4 +1,0 @@
-<list>
-  <name>list4</name>
-  <items/>
-</list>

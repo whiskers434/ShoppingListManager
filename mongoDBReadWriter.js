@@ -3,14 +3,12 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/shoppingListManager';
 
-
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
   module.exports.findProducts(db, function() {});
   module.exports.findLists(db, function() {});
   module.exports.database = db;
-  //module.exports.deleteList("list2");
 });
 
 module.exports = {

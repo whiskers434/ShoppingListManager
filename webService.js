@@ -2,9 +2,6 @@ var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 var db = require('./mongoDBReadWriter.js');
 
-file.GetProductListFromFile();
-file.GetListsFromDir();
-
 module.exports = function(app){
 	app.use(bodyParser.json()); // for parsing application/json
 	app.use(bodyParser.urlencoded({ extended: true })); // for parsing
@@ -22,7 +19,6 @@ module.exports = function(app){
 			res.send(products);
 			res.end();
 		});
-		
 	});
 
 	app.get('/getLists', function(req, res , next){

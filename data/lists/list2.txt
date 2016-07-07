@@ -1,9 +1,0 @@
-<list>
-  <name>list2</name>
-  <items>
-    <item>
-      <name>Apple</name>
-      <quantity>1</quantity>
-    </item>
-  </items>
-</list>
