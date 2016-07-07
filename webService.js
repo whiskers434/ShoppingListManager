@@ -17,16 +17,21 @@ module.exports = function(app){
 
 	app.get('/getProductList', function(req, res, next){
 		//console.log('getProductList');
-		//console.log(db.getProducts());
-		res.send(db.getProducts());
-		res.end();
+		db.findProducts(db.database, function(products) {
+			//console.log(products);
+			res.send(products);
+			res.end();
+		});
+		
 	});
 
 	app.get('/getLists', function(req, res , next){
 		//console.log('getLists');
-		//console.log(db.getLists());
-		res.send(db.getLists());
-		res.end();
+		db.findLists(db.database, function(listNames){
+			//console.log(listNames);
+			res.send(listNames);
+			res.end();
+		});
 	});
 
 	app.get('/getList/:listName', function(req, res, next){
@@ -34,8 +39,12 @@ module.exports = function(app){
 		//console.log('get List');
 		//console.log(listName);
 		if(listName != undefined){
-			res.send(db.getList(listName));
-		    res.end();	
+			db.findList(db.database, listName, function(list) {
+				//console.log(list);
+				res.send(list);
+		    	res.end();	
+			});
+			
 		}
 	});
 
@@ -46,17 +55,6 @@ module.exports = function(app){
 		//console.log(listNew.name);
 		//console.log(listOld);
 		db.saveList(newlist, oldListName);
-		/*
-		file.WriteListToFile(listNew)
-		var i = file.lists.indexOf(listNew.name);
-		if(i == -1){
-			file.lists.push(listNew.name);
-			if(listOld != ""){
-				file.RemoveListFromFile(listOld)
-				file.lists.splice(file.lists.indexOf(listOld),1);
-			}
-		}
-		*/
 	});
 
 	app.post('/deleteList', function(req, res, next) {
@@ -64,7 +62,5 @@ module.exports = function(app){
 		//console.log('sendListRemove');
 		//console.log(listRemove);
 		db.deleteList(listNameToRemove);
-		//file.DeleteListFile(listRemove)
-		//file.lists.splice(file.lists.indexOf(listRemove),1);
 	});
 }
