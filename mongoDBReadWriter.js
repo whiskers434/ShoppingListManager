@@ -34,7 +34,7 @@ module.exports = {
 	},
 
 	findLists: function(db, callback) {
-	   var cursor =db.collection('lists').find();
+	   var cursor =db.collection('shoppinglists').find();
 	   var listNames = [];
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
@@ -54,7 +54,7 @@ module.exports = {
 	},
 
 	findList: function(db, listName, callback) {
-	   var cursor =db.collection('lists').find({"list.name": listName});
+	   var cursor =db.collection('shoppinglists').find({"list.name": listName});
 	   var list = {};
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
@@ -69,7 +69,7 @@ module.exports = {
 	},
 
 	insertList: function(db, list, callback) {
-	   db.collection('lists').insertOne( {
+	   db.collection('shoppinglists').insertOne( {
 	   	list
 	   }, function(err, result) {
 	    assert.equal(err, null);
@@ -79,7 +79,7 @@ module.exports = {
 	},
 
 	updateList: function(db, listName, list, callback) {
-	   db.collection('lists').updateOne({ "list.name": listName},
+	   db.collection('shoppinglists').updateOne({ "list.name": listName},
 	   {
 	   	$set: {list},
 	   	$currentDate: { "lastModified": true}
@@ -99,10 +99,10 @@ module.exports = {
 	},
 
 	removeList: function(db, listName, callback) {
-	   db.collection('lists').deleteOne({ 
+	   db.collection('shoppinglists').deleteOne({ 
 	   		"list.name": listName 
 	  		}, function(err, results) {
-	         //console.log(results);
+	         console.log(results);
 	         callback();
 	      }
 	   );
