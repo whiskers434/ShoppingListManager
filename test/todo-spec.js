@@ -1,6 +1,6 @@
 describe('Shopping List Manager Tester', function() {
 
-    browser.get('https://shopping-list-manager.herokuapp.com/#/');
+    browser.get('http://localhost:3000/#/');
 
     it('should have a title', function() {
         expect(browser.getTitle()).toEqual('Shopping List Manager');
@@ -146,7 +146,7 @@ describe('Shopping List Manager Tester', function() {
 
     it('should have edited list be saved', function() {
         expect(element(by.id('saveList')).isPresent()).toBe(true);
-        expect(element(by.id('saveList')).getAttribute('disabled')).toEqual(null);
+        expect(element(by.id('saveList')).getAttribute('disabled')).toEqual('true');
     });
 
     it('should have list with items that can be deleted', function() {

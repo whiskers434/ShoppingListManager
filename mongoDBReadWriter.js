@@ -10,6 +10,7 @@ MongoClient.connect(url, function(err, db) {
   module.exports.findProducts(db, function() {});
   module.exports.findLists(db, function() {});
   module.exports.database = db;
+  //module.exports.deleteList("list2");
 });
 
 module.exports = {
@@ -79,8 +80,8 @@ module.exports = {
 	  });
 	},
 
-	updateList: function(db, list, callback) {
-	   db.collection('lists').updateOne({ "list.name": list.name},
+	updateList: function(db, listName, list, callback) {
+	   db.collection('lists').updateOne({ "list.name": listName},
 	   {
 	   	$set: {list},
 	   	$currentDate: { "lastModified": true}
@@ -93,12 +94,7 @@ module.exports = {
 
 	saveList: function(newList, oldListName){
 		if(oldListName != ""){
-			if(oldListName == newList.name){
-				this.updateList(this.database, newList, function() {});
-			}else{
-				this.deleteList(oldListName);
-				this.insertList(this.database, newList, function() {});
-			}
+			this.updateList(this.database, oldListName, newList, function() {});
 		}else{
 			this.insertList(this.database, newList, function() {});
 		}
