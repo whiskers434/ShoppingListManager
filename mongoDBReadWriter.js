@@ -2,22 +2,11 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://admin:P4$$w0rd@ds017185.mlab.com:17185/shopping_list_manager';
-//var url = 'mongodb://localhost:27017/test';
+//var url = 'mongodb://localhost:27017/shopping_list_manager';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
   module.exports.database = db;
-  // module.exports.insertProductList(db, {"product": "Apple"});
-  // module.exports.insertProductList(db, {"product": "Orange"});
-  // module.exports.insertProductList(db, {"product": "Milk"});
-  // module.exports.insertProductList(db, {"product": "Bread"});
-  // module.exports.insertProductList(db, {"product": "Pizza"});
-  // module.exports.insertProductList(db, {"product": "Jam"});
-  // module.exports.insertProductList(db, {"product": "Butter"});
-  // module.exports.insertProductList(db, {"product": "Sugar"});
-  // module.exports.insertProductList(db, {"product": "Honey"});
-  // module.exports.insertProductList(db, {"product": "Gravy"});
-  //module.exports.createLists(10);
 });
 
 module.exports = {
@@ -29,8 +18,8 @@ module.exports = {
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
 	      if (doc != null) {
-	         console.dir(doc);
-	         console.dir(doc.product.product);
+	         //console.dir(doc);
+	         //console.dir(doc.product.product);
 	         if(products === undefined){
 	         	products = [doc.product];
 	         }else{
@@ -106,7 +95,7 @@ module.exports = {
 	   	list
 	   }, function(err, result) {
 	    assert.equal(err, null);
-	    console.log("Inserted " + list.name + " into the lists collection.");
+	    //console.log("Inserted " + list.name + " into the lists collection.");
 	    callback();
 	  });
 	},
@@ -135,7 +124,7 @@ module.exports = {
 	   db.collection('lists').deleteOne({ 
 	   		"list.name": listName 
 	  		}, function(err, results) {
-	         console.log(results);
+	         //console.log(results);
 	      }
 	   );
 	},
@@ -160,17 +149,8 @@ module.exports = {
 
 	getNumberOfLists: function(db, callback) {
 	    this.findLists(this.database, function(listNames){
-			console.log(listNames.length);
+			//console.log(listNames.length);
 			callback({"lists" : listNames.length});
 		});
-	},
-
-	insertProductList: function(db, product) {
-		db.collection('productList').insertOne( {
-		   	product
-		   }, function(err, result) {
-		    assert.equal(err, null);
-		    console.log("Inserted " + product.product + " into the product list collection.");
-		  });
 	}
 }

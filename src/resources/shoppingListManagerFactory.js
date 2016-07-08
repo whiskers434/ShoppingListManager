@@ -10,7 +10,12 @@ angular.module('shoppingListManagerFactory', [])
 
 		shoppingListManager.getLists = function(page){ 
 			//console.log('get lists ' + page);
-			return $http.get('/getLists/' + page);
+			return $http.get('/getLists');
+		};
+
+		shoppingListManager.getListsOfIndex = function(page){ 
+			//console.log('get lists ' + page);
+			return $http.get('/getListsOfIndex/' + page);
 		};
 
 		shoppingListManager.getNumOfLists = function(){ 

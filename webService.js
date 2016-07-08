@@ -23,7 +23,16 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/getLists/:page', function(req, res , next){
+	app.get('/getLists', function(req, res , next){
+		//console.log('getLists');
+		db.findLists(db.database, function(listNames){
+			//console.log(listNames);
+			res.send(listNames);
+			res.end();
+		});
+	});
+
+	app.get('/getListsOfIndex/:page', function(req, res , next){
 		//console.log('getLists');
 		var page = req.params.page;
 		var endIndex = page*5;

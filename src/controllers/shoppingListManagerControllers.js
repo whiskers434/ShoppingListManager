@@ -24,7 +24,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 
 	    $scope.pageChanged = function (newPage) {
         	//console.log(newPage);
-        	 shoppingListManager.getLists(newPage)
+        	 shoppingListManager.getListsOfIndex(newPage)
 	            .then(function (response) {
 	            	//console.log("gotlists");
 	            	//console.log(response.data);
