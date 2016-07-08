@@ -34,7 +34,7 @@ module.exports = {
 	         if(products === undefined){
 	         	products = [doc.product];
 	         }else{
-	         	products.push(doc.product);
+	         	products.push(doc.product.product);
 	         }
 	      } else {
 	         callback(products);
