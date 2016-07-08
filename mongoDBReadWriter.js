@@ -7,16 +7,16 @@ MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
   module.exports.database = db;
-  module.exports.insertProductList(db, {"product": "Apple"});
-  module.exports.insertProductList(db, {"product": "Orange"});
-  module.exports.insertProductList(db, {"product": "Milk"});
-  module.exports.insertProductList(db, {"product": "Bread"});
-  module.exports.insertProductList(db, {"product": "Pizza"});
-  module.exports.insertProductList(db, {"product": "Jam"});
-  module.exports.insertProductList(db, {"product": "Butter"});
-  module.exports.insertProductList(db, {"product": "Sugar"});
-  module.exports.insertProductList(db, {"product": "Honey"});
-  module.exports.insertProductList(db, {"product": "Gravy"});
+  // module.exports.insertProductList(db, {"product": "Apple"});
+  // module.exports.insertProductList(db, {"product": "Orange"});
+  // module.exports.insertProductList(db, {"product": "Milk"});
+  // module.exports.insertProductList(db, {"product": "Bread"});
+  // module.exports.insertProductList(db, {"product": "Pizza"});
+  // module.exports.insertProductList(db, {"product": "Jam"});
+  // module.exports.insertProductList(db, {"product": "Butter"});
+  // module.exports.insertProductList(db, {"product": "Sugar"});
+  // module.exports.insertProductList(db, {"product": "Honey"});
+  // module.exports.insertProductList(db, {"product": "Gravy"});
   //module.exports.createLists(10);
 });
 
@@ -29,8 +29,8 @@ module.exports = {
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
 	      if (doc != null) {
-	         //console.dir(doc);
-	         //console.dir(doc.product);
+	         console.dir(doc);
+	         console.dir(doc.product.product);
 	         if(products === undefined){
 	         	products = [doc.product];
 	         }else{
