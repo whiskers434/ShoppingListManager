@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://admin:P4$$w0rd@ds017185.mlab.com:17185/shopping_list_manager';
-var url = 'mongodb://localhost:27017/test';
+//var url = 'mongodb://localhost:27017/test';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
@@ -163,7 +163,7 @@ module.exports = {
 			console.log(listNames.length);
 			callback({"lists" : listNames.length});
 		});
-	}
+	},
 
 	insertProductList: function(db, product) {
 		db.collection('productList').insertOne( {
@@ -171,7 +171,6 @@ module.exports = {
 		   }, function(err, result) {
 		    assert.equal(err, null);
 		    console.log("Inserted " + product.product + " into the product list collection.");
-		    callback();
 		  });
 	}
 }
