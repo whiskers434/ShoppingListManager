@@ -11,8 +11,8 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	    function getLists() {
 	        shoppingListManager.getNumOfLists()
 	            .then(function (response) {
-	            	console.log("gotNumOflists");
-	            	console.log(response.data.lists);
+	            	//console.log("gotNumOflists");
+	            	//console.log(response.data.lists);
 	            	$scope.lists = new Array(response.data.lists);
 	            	$scope.pageChanged(1);
 	            	$scope.pageChanged(2);
@@ -23,7 +23,7 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 	    }
 
 	    $scope.pageChanged = function (newPage) {
-        	console.log(newPage);
+        	//console.log(newPage);
         	 shoppingListManager.getLists(newPage)
 	            .then(function (response) {
 	            	//console.log("gotlists");

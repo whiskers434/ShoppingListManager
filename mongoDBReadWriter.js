@@ -2,16 +2,22 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://admin:P4$$w0rd@ds017185.mlab.com:17185/shopping_list_manager';
+var url = 'mongodb://localhost:27017/test';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
-  //module.exports.indexLists(db, function() {});
   module.exports.database = db;
-  // module.exports.getNumberOfLists(db, function(lists){
-  // 	console.log(lists);
-  // });
-  module.exports.createLists(10);
-  //module.exports.clearLists(100000);
+  module.exports.insertProductList(db, {"product": "Apple"});
+  module.exports.insertProductList(db, {"product": "Orange"});
+  module.exports.insertProductList(db, {"product": "Milk"});
+  module.exports.insertProductList(db, {"product": "Bread"});
+  module.exports.insertProductList(db, {"product": "Pizza"});
+  module.exports.insertProductList(db, {"product": "Jam"});
+  module.exports.insertProductList(db, {"product": "Butter"});
+  module.exports.insertProductList(db, {"product": "Sugar"});
+  module.exports.insertProductList(db, {"product": "Honey"});
+  module.exports.insertProductList(db, {"product": "Gravy"});
+  //module.exports.createLists(10);
 });
 
 module.exports = {
@@ -100,7 +106,7 @@ module.exports = {
 	   	list
 	   }, function(err, result) {
 	    assert.equal(err, null);
-	    console.log("Inserted a " + list.name + " into the lists collection.");
+	    console.log("Inserted " + list.name + " into the lists collection.");
 	    callback();
 	  });
 	},
@@ -152,18 +158,20 @@ module.exports = {
 		}
 	},
 
-	clearLists: function(lists) {
-		for(i = 0; i < lists; i++){
-			var list = "list"+i;
-			console.log("remove " + list);
-			this.removeList(this.database, list);
-		}
-	},
-
 	getNumberOfLists: function(db, callback) {
 	    this.findLists(this.database, function(listNames){
 			console.log(listNames.length);
 			callback({"lists" : listNames.length});
 		});
+	}
+
+	insertProductList: function(db, product) {
+		db.collection('productList').insertOne( {
+		   	product
+		   }, function(err, result) {
+		    assert.equal(err, null);
+		    console.log("Inserted " + product.product + " into the product list collection.");
+		    callback();
+		  });
 	}
 }

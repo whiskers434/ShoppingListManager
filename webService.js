@@ -24,12 +24,12 @@ module.exports = function(app){
 	});
 
 	app.get('/getLists/:page', function(req, res , next){
-		console.log('getLists');
+		//console.log('getLists');
 		var page = req.params.page;
 		var endIndex = page*5;
 		var startIndex = endIndex - 5;
 		db.findListsOfIndex(db.database, startIndex, endIndex, function(listNames){
-			console.log(listNames);
+			//console.log(listNames);
 			res.send(listNames);
 			res.end();
 		});
