@@ -2,6 +2,8 @@ var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 var db = require('./mongoDBReadWriter.js');
 
+//file.CreateFiles(5000);
+
 module.exports = function(app){
 	app.use(bodyParser.json()); // for parsing application/json
 	app.use(bodyParser.urlencoded({ extended: true })); // for parsing
@@ -21,11 +23,23 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/getLists', function(req, res , next){
-		//console.log('getLists');
-		db.findLists(db.database, function(listNames){
-			//console.log(listNames);
+	app.get('/getLists/:page', function(req, res , next){
+		console.log('getLists');
+		var page = req.params.page;
+		var endIndex = page*5;
+		var startIndex = endIndex - 5;
+		db.findListsOfIndex(db.database, startIndex, endIndex, function(listNames){
+			console.log(listNames);
 			res.send(listNames);
+			res.end();
+		});
+	});
+
+	app.get('/getNumOfLists', function(req, res , next){
+		//console.log('getNumOfLists');
+		db.getNumberOfLists(db.database, function(numOfLists){
+			//console.log(numOfLists);
+			res.send(numOfLists);
 			res.end();
 		});
 	});
@@ -57,6 +71,6 @@ module.exports = function(app){
 	    var listNameToRemove = req.body.list;
 		//console.log('sendListRemove');
 		//console.log(listRemove);
-		db.deleteList(listNameToRemove);
+		db.removeList(db.database, listNameToRemove)
 	});
 }

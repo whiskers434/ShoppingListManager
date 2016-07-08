@@ -81,5 +81,17 @@ module.exports = {
 		  	}
 			console.log('It\'s saved!');
 		});
+	},
+
+	CreateFiles: function(lists) {
+		for(i = 0; i < lists; i ++){
+			var name = "list" + i + ".txt";
+			fs.writeFile('data/lists/' + name, 'utf8', function(err) {
+			if (err) {
+		    	return console.log(err);
+		  	}
+			console.log('It\'s saved!');
+		});
+		}
 	}
 }

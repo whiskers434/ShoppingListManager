@@ -9,16 +9,35 @@ shoppingListManagerControllers.controller('ViewAllListsCtrl', ['$scope', '$locat
 		getLists();
 
 	    function getLists() {
-	        shoppingListManager.getLists()
+	        shoppingListManager.getNumOfLists()
 	            .then(function (response) {
-	            	//console.log("got lists");
-	            	//console.log(response.data);
-	                $scope.lists = response.data;
-	                $scope.lists.sort();
+	            	console.log("gotNumOflists");
+	            	console.log(response.data.lists);
+	            	$scope.lists = new Array(response.data.lists);
+	            	$scope.pageChanged(1);
+	            	$scope.pageChanged(2);
+	            	$scope.pageChanged(3);
 	            }, function (error) {
 	                $scope.status = 'Unable to load customer data: ' + error.message;
 	            });
 	    }
+
+	    $scope.pageChanged = function (newPage) {
+        	console.log(newPage);
+        	 shoppingListManager.getLists(newPage)
+	            .then(function (response) {
+	            	//console.log("gotlists");
+	            	//console.log(response.data);
+	            	for(i = 0; i < response.data.length; i++){
+	            		//console.log(i);
+	            		//console.log(i + ((newPage*5)-5));
+	            		$scope.lists[i + ((newPage*5)-5)] = response.data[i];
+	            	}
+	                //$scope.lists.sort();
+	            }, function (error) {
+	                $scope.status = 'Unable to load customer data: ' + error.message;
+	            });
+		};
 
 		$scope.NewList = function() {
 			//console.log("New list");

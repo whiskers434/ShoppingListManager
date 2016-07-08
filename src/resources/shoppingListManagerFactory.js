@@ -8,9 +8,14 @@ angular.module('shoppingListManagerFactory', [])
 			return $http.get('/getProductList');
 		};
 
-		shoppingListManager.getLists = function(){ 
+		shoppingListManager.getLists = function(page){ 
+			//console.log('get lists ' + page);
+			return $http.get('/getLists/' + page);
+		};
+
+		shoppingListManager.getNumOfLists = function(){ 
 			//console.log('get lists');
-			return $http.get('/getLists');
+			return $http.get('/getNumOfLists');
 		};
 
 		shoppingListManager.getList = function(list){

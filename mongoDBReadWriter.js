@@ -1,14 +1,17 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/shoppingListManager';
-
+var url = 'mongodb://admin:P4$$w0rd@ds017185.mlab.com:17185/shopping_list_manager';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server.");
-  module.exports.findProducts(db, function() {});
-  module.exports.findLists(db, function() {});
+  //module.exports.indexLists(db, function() {});
   module.exports.database = db;
+  // module.exports.getNumberOfLists(db, function(lists){
+  // 	console.log(lists);
+  // });
+  module.exports.createLists(10);
+  //module.exports.clearLists(100000);
 });
 
 module.exports = {
@@ -34,7 +37,31 @@ module.exports = {
 	},
 
 	findLists: function(db, callback) {
-	   var cursor =db.collection('shoppinglists').find();
+	   var cursor =db.collection('lists').find();
+	   var listNames = [];
+	   cursor.each(function(err, doc) {
+	      assert.equal(err, null);
+	      if (doc != null) {
+	         //console.dir(doc);
+	         //console.dir(doc.list.name);
+	         if(listNames === undefined){
+	         	listNames = [doc.list.name];
+	         }else{
+	         	listNames.push(doc.list.name);
+	         }
+	      } else {
+	      	//console.log(listNames);
+	      	callback(listNames);
+	      }
+	   });
+	},
+
+	findListsOfIndex: function(db, startIndex, endIndex, callback) {
+		var options = {
+		    "limit": startIndex-endIndex,
+		    "skip": startIndex
+		}
+	   var cursor =db.collection('lists').find({},options).sort({"list.name": 1});
 	   var listNames = [];
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
@@ -54,7 +81,7 @@ module.exports = {
 	},
 
 	findList: function(db, listName, callback) {
-	   var cursor =db.collection('shoppinglists').find({"list.name": listName});
+	   var cursor =db.collection('lists').find({"list.name": listName});
 	   var list = {};
 	   cursor.each(function(err, doc) {
 	      assert.equal(err, null);
@@ -69,23 +96,23 @@ module.exports = {
 	},
 
 	insertList: function(db, list, callback) {
-	   db.collection('shoppinglists').insertOne( {
+	   db.collection('lists').insertOne( {
 	   	list
 	   }, function(err, result) {
 	    assert.equal(err, null);
-	    console.log("Inserted a list into the lists collection.");
+	    console.log("Inserted a " + list.name + " into the lists collection.");
 	    callback();
 	  });
 	},
 
 	updateList: function(db, listName, list, callback) {
-	   db.collection('shoppinglists').updateOne({ "list.name": listName},
+	   db.collection('lists').updateOne({ "list.name": listName},
 	   {
 	   	$set: {list},
 	   	$currentDate: { "lastModified": true}
 	   }, function(err, results) {
 	      	assert.equal(err, null);
-	      	console.log("Update a list into the lists collection.");
+	      	//console.log("Update a list into the lists collection.");
 	      	callback();
 	   });
 	},
@@ -98,17 +125,45 @@ module.exports = {
 		}
 	},
 
-	removeList: function(db, listName, callback) {
-	   db.collection('shoppinglists').deleteOne({ 
+	removeList: function(db, listName) {
+	   db.collection('lists').deleteOne({ 
 	   		"list.name": listName 
 	  		}, function(err, results) {
 	         console.log(results);
+	      }
+	   );
+	},
+
+	indexLists: function(db, callback) {
+	   db.collection('lists').createIndex(
+	      { "list.name": 1 },
+	      null,
+	      function(err, results) {
+	         //console.log(results);
 	         callback();
 	      }
 	   );
 	},
 
-	deleteList: function(listName){
-		this.removeList(this.database, listName, function() {});
+	createLists: function(lists) {
+		for(i = 0; i < lists; i++){
+			var list = {"name": "list"+i, "items":[]};
+			this.insertList(this.database, list, function(){});
+		}
 	},
+
+	clearLists: function(lists) {
+		for(i = 0; i < lists; i++){
+			var list = "list"+i;
+			console.log("remove " + list);
+			this.removeList(this.database, list);
+		}
+	},
+
+	getNumberOfLists: function(db, callback) {
+	    this.findLists(this.database, function(listNames){
+			console.log(listNames.length);
+			callback({"lists" : listNames.length});
+		});
+	}
 }

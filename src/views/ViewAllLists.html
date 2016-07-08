@@ -20,7 +20,7 @@
 	</div>
 </div>
 <ul class="row">
-    <li id="list" pagination-id="list.id" dir-paginate="list in lists | filter:searchName | orderBy : 'name' : listSort | itemsPerPage: 5">
+    <li id="list" pagination-id="list.id" dir-paginate="list in lists | filter:searchName | orderBy : 'name' : listSort | itemsPerPage: 5 track by $index">
 		<div class="col s4"><h4 id="listName">{{list}}</h4></div>
 		<div class="col s4"><h4 id="listEdit">
 			<button class="btn-floating btn-large waves-effect waves-light light-blue lighten-3" ng-click="EditList(list)">
@@ -35,7 +35,7 @@
 	</li>
 </ul>
 <div class="row">
-	<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+	<dir-pagination-controls pagination-id="list.id" on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 </div>
 <div class="row">
 	<div class="col s12">
