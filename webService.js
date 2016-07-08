@@ -2,8 +2,6 @@ var bodyParser = require('body-parser');
 var file = require('./fileReadWriter.js');
 var db = require('./mongoDBReadWriter.js');
 
-//file.CreateFiles(5000);
-
 module.exports = function(app){
 	app.use(bodyParser.json()); // for parsing application/json
 	app.use(bodyParser.urlencoded({ extended: true })); // for parsing
